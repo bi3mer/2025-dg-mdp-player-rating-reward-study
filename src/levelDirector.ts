@@ -109,7 +109,6 @@ export class LevelDirector {
   }
 
   public get(levelSegments: number): string[] {
-    /**
     const pi = policyIteration(MDP, 0.95, true, true, 20);
     this.columnsPerLevel = [];
 
@@ -133,13 +132,9 @@ export class LevelDirector {
 
     // remove START id from keys since we won't use it after this 
     this.keys.splice(0, 1);
-    
+
     // Update if the player is on the last level 
     this.playerIsOnLastLevel = this.keys.includes(KEY_END);
-
-    */
-    // TODO: test code 
-    this.keys = ['0_0_0', '1_0_0'];
 
     // Populate the level
     let r: number;

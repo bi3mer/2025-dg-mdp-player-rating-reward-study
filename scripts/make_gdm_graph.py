@@ -38,11 +38,23 @@ typescript += "MDP.addNode(new CustomNode(KEY_DEATH, -1, -1, 0, true, [], -1));\
 
 # Rest of the nodes
 for key in level_to_stats:
+    is_terminal = True
+    linkKey = key.replace("_", ",")
+    for tgt in links[linkKey]:
+        if links[linkKey][tgt]["tree search"]["percent_playable"] == 1.0:
+            is_terminal = False
+            break
+
     s = level_to_stats[key]
-    typescript += f"MDP.addNode(new CustomNode('{key}', {s.difficulty}, {s.enjoyability}, 0, false, [], -1));\n"
+    typescript += f"MDP.addNode(new CustomNode('{key}', {s.difficulty}, {s.enjoyability}, 0, {str(is_terminal).lower()}, [], -1));\n"
+
+    if is_terminal:
+        print(f"{key} is terminal :/")
 
 # Edges
 typescript += "\n// ========= Edges =========\n"
+typescript += 'MDP.addEdge(new CustomEdge(KEY_START, "0_0_0", [["0_0_0", 0.99], [KEY_DEATH, 0.01]], []));\n'
+
 for src in links:
     _src = src.replace(",", "_")
     for tgt in links[src]:

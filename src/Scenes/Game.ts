@@ -37,9 +37,6 @@ export class Game extends ECSScene {
     const gc = new Utility.GridCollisions();
 
     let switchCount = 0;
-    // const lvlKey = "0_0_0";
-    // const lvl = idToLevel[lvlKey];
-    console.log('hi');
     const lvl = this.director.get(2);
 
     const columns = lvl[0].length;
