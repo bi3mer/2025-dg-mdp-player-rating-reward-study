@@ -13,7 +13,7 @@ with open(os.path.join("..", "data", "levels.json"), "r") as f:
 
     keys = list(levels.keys())
     for id in keys:
-        levels[f"{id}_0"] = levels[id]
+        levels[f"{id}_0"] = [row[2:-2] for row in levels[id]]
         del levels[id]
 
 level_to_stats = {}

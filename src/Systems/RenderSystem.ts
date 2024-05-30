@@ -3,7 +3,7 @@ import { C } from "../Components";
 
 export class RenderSystem extends System {
   componentsRequired = new Set<Function>([CommonComponents.Position2d, C.Render]);
-  private charToColor: {[id: string]: string}= {
+  private charToColor: { [id: string]: string } = {
     '@': 'white',
     '-': '#d9d1d0',
     'X': '#636363',
@@ -20,8 +20,9 @@ export class RenderSystem extends System {
   update(engine: Engine, entities: Set<Entity>): void {
     const xMod: number = this.ecs.getBB('x mod');
     const yMod: number = this.ecs.getBB('y mod');
+    engine.setFont(20);
 
-    for(let entity of entities.values()) {
+    for (let entity of entities.values()) {
       // get components
       const render = this.ecs.getComponents(entity).get(C.Render)
       const pos = this.ecs.getComponents(entity).get(CommonComponents.Position2d);
@@ -29,7 +30,7 @@ export class RenderSystem extends System {
       // render
       const char = render.character;
       const color = this.charToColor[char];
-      engine.drawText(pos.getX()*xMod, pos.getY()*yMod, char, color);
+      engine.drawText(pos.getX() * xMod, pos.getY() * yMod, char, color);
     }
   }
 }

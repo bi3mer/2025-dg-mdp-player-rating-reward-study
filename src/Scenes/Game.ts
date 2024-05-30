@@ -5,6 +5,7 @@ import { idToLevel } from "../levels";
 
 import { Engine, ECSScene, Key, CommonComponents, Utility } from "../WorldEngine";
 import { Collider } from "../Components/Collider";
+import { NUM_ROWS } from "../constants";
 
 export class Game extends ECSScene {
   public playerWonIndex = 0;
@@ -19,8 +20,6 @@ export class Game extends ECSScene {
   }
 
   public onEnter(engine: Engine): void {
-
-
     const xMod = 20;
     const yMod = 20;
     const offsetX = 8;
@@ -33,15 +32,23 @@ export class Game extends ECSScene {
     const gc = new Utility.GridCollisions();
 
     let switchCount = 0;
-    // const lvlKey = engine.getBB('level') as string;
     const lvlKey = "0_0_0";
     const lvl = idToLevel[lvlKey];
-    console.log(lvlKey);
-    console.log(lvl);
 
-    for (let y = 0; y < lvl.length; ++y) {
-      for (let x = 0; x < lvl[y].length; ++x) {
-        const char = lvl[y][x];
+    const columns = lvl[0].length;
+    const modColumns = columns + 4;
+    for (let y = 0; y < NUM_ROWS; ++y) {
+      // add start values to both ends of the row
+      let row = [...`--${lvl[y]}--`];
+      if (y == 0) {
+        row[0] = '@';
+      } else if (y == NUM_ROWS - 1) {
+        row[modColumns - 1] = 'O';
+      }
+
+      /// place into map
+      for (let x = 0; x < modColumns; ++x) {
+        const char = row[x];
         const id = this.addEntity();
 
         const xPos = offsetX + x;
@@ -114,7 +121,6 @@ export class Game extends ECSScene {
     this.addSystem(90, new S.PortalSystem());
     this.addSystem(100, new S.RenderSystem());
     this.addSystem(110, new S.RenderGameInfo());
-    this.addSystem(120, new S.RenderLevel());
     this.addSystem(900, new S.UpdatePlayerTurn());
   }
 

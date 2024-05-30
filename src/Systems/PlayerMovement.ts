@@ -12,14 +12,14 @@ export class PlayerMovement extends System {
   update(engine: Engine, entities: Set<Entity>): void {
     let playerID = entities.values().next().value;
     const components = this.ecs.getComponents(playerID);
-    const  player = components.get(C.Player);
+    const player = components.get(C.Player);
     let pos = components.get(CommonComponents.Position2d);
     const x = pos.getX();
     const y = pos.getY();
 
-    for(let key of engine.keyPress) {
+    for (let key of engine.keyPress) {
       let playerMoved = false;
-      switch(key) {
+      switch (key) {
         case Key.A:
         case Key.LEFT:
           this.updateTimeStep();
@@ -56,7 +56,7 @@ export class PlayerMovement extends System {
         // nothing to do in the default case
       }
 
-      if(playerMoved) break;
+      if (playerMoved) break;
     }
   }
 }
