@@ -44,10 +44,12 @@ for key in level_to_stats:
 # Edges
 typescript += "\n// ========= Edges =========\n"
 for src in links:
+    _src = src.replace(",", "_")
     for tgt in links[src]:
         info = links[src][tgt]
+        tgt = tgt.replace(",", "_")
         if info["tree search"]["percent_playable"] == 1.0:
-            typescript += f'MDP.addEdge(new CustomEdge("{src}", "{tgt}", [["{tgt}", 0.99], [KEY_DEATH, 0.01]], {info["tree search"]["link"]}));\n'
+            typescript += f'MDP.addEdge(new CustomEdge("{_src}", "{tgt}", [["{tgt}", 0.99], [KEY_DEATH, 0.01]], {info["tree search"]["link"]}));\n'
 
 # Levels
 typescript += "\n// ========= Level Segments =========\n"

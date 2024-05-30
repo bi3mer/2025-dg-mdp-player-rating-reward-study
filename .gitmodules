@@ -1,3 +1,6 @@
 [submodule "src/GDM-TS"]
 	path = src/GDM-TS
 	url = https://github.com/bi3mer/GDM-TS.git
+[submodule "src/WorldEngine"]
+	path = src/WorldEngine
+	url = https://github.com/bi3mer/WorldEngine.git
