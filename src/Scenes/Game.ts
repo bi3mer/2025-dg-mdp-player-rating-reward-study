@@ -6,6 +6,7 @@ import { idToLevel } from "../levels";
 import { Engine, ECSScene, Key, CommonComponents, Utility } from "../WorldEngine";
 import { Collider } from "../Components/Collider";
 import { NUM_ROWS } from "../constants";
+import { LevelDirector } from "../levelDirector";
 
 export class Game extends ECSScene {
   public playerWonIndex = 0;
@@ -13,8 +14,12 @@ export class Game extends ECSScene {
   public selfIndex = 0;
   public mainMenuIndex = 0;
 
+  private director: LevelDirector;
+
   constructor() {
     super();
+
+    this.director = new LevelDirector();
     this.setBB('game over', 0);
     this.setBB('restart', false)
   }
@@ -32,8 +37,10 @@ export class Game extends ECSScene {
     const gc = new Utility.GridCollisions();
 
     let switchCount = 0;
-    const lvlKey = "0_0_0";
-    const lvl = idToLevel[lvlKey];
+    // const lvlKey = "0_0_0";
+    // const lvl = idToLevel[lvlKey];
+    console.log('hi');
+    const lvl = this.director.get(2);
 
     const columns = lvl[0].length;
     const modColumns = columns + 4;
