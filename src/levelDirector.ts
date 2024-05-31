@@ -18,6 +18,8 @@ export class LevelDirector {
   }
 
   public update(playerWon: boolean, playerColumn: number): void {
+    console.log(`won: ${playerWon}, column: ${playerColumn}`);
+
     // Map out how far the player made it in the level
     const keysLength = this.keys.length;
     const percentCompleted: number[] = [];
@@ -50,7 +52,8 @@ export class LevelDirector {
       // add edge if the segemnt was completed by the player
       if (pc === 1) {
         if (!MDP.hasEdge(KEY_START, id)) {
-          MDP.addEdge(new CustomEdge(KEY_START, id, [[id, 1], [KEY_DEATH, 0.0]], []));
+          console.log(`'adding edge: ${KEY_START} -> ${id}`);
+          MDP.addEdge(new CustomEdge(KEY_START, id, [[id, 1.0], [KEY_DEATH, 0.0]], []));
         }
       }
 
@@ -90,7 +93,8 @@ export class LevelDirector {
         let maxReward = -10000;
         for (let jj = 0; jj < neighborsCount; ++jj) {
           const nodeName = neighbors[jj];
-          const d = (MDP.getNode(nodeName) as CustomNode).depth;
+          const d = (MDP.getNode(nodeName) as CustomNode).difficulty;
+
           if (d > maxReward) {
             hardestNeighbor = nodeName;
             maxReward = d;
@@ -165,6 +169,7 @@ export class LevelDirector {
       }
     }
 
+    console.log(lvl.join("\n"));
     return lvl;
   }
 }

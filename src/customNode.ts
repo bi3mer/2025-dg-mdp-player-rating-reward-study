@@ -5,8 +5,8 @@ export class CustomNode extends Node {
   public sumPercentCompleted: number;
   public depth: number;
 
-  private difficulty: number;
-  private enjoyability: number;
+  public difficulty: number;
+  public enjoyability: number;
 
   constructor(name: string, difficulty: number, enjoyability: number, utility: number, isTerminal: boolean, neighbors: string[], depth: number) {
     super(name, difficulty, utility, isTerminal, neighbors);
@@ -20,7 +20,6 @@ export class CustomNode extends Node {
   }
 
   public updateReward(): void {
-    // TODO: why is this multiply?
     this.reward = this.difficulty * this.visitedCount;
   }
 }
