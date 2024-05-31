@@ -8,19 +8,19 @@ export class PlayerLost extends Scene {
     super();
   }
 
-  public onEnter(engine: Engine): void { 
+  public onEnter(engine: Engine): void {
     this.timer = 0;
   }
-  
+
   public onExit(engine: Engine): void { }
 
   public update(engine: Engine): number {
     this.timer += engine.delta
-    if(this.timer > 2 || engine.keyDown.has(Key.ENTER)) {
+    if (this.timer > 2 || engine.keyDown.has(Key.ENTER)) {
       return this.sceneIndex;
     } else {
       engine.setFont(40);
-      engine.drawText(200, 240, 'You lost! :/', 'red')
+      engine.drawText(360, 240, 'You lost! :/', 'red')
       return -1;
     }
   }

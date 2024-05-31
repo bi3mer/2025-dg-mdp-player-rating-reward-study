@@ -8,10 +8,10 @@ export class PlayerWon extends Scene {
     super();
   }
 
-  public onEnter(engine: Engine): void { 
+  public onEnter(engine: Engine): void {
     this.timer = 0;
   }
-  
+
   public onExit(engine: Engine): void { }
 
   public update(engine: Engine): number {
@@ -21,7 +21,7 @@ export class PlayerWon extends Scene {
       return this.sceneIndex;
     } else {
       engine.setFont(40);
-      engine.drawText(200, 240, 'You won!', 'green')
+      engine.drawText(420, 240, 'You won!', 'green')
       return -1;
     }
   }
