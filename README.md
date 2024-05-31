@@ -2,4 +2,4 @@
 
 Notes for me:
 
-- level director does not currently get the player progress
+- level director does not have the ability to switch rewards

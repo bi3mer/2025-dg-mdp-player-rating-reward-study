@@ -1,5 +1,6 @@
 import { Engine, System, Entity, CommonComponents, Utility } from "../WorldEngine";
 import { C } from "../Components";
+import { MAX_STAMINA } from "../constants";
 
 
 export class PlayerCollision extends System {
@@ -23,7 +24,7 @@ export class PlayerCollision extends System {
     // if no collision was found, the player can move
     const gc: Utility.GridCollisions = this.ecs.getBB('grid collisions');
     const locID = gc.get(pos);
-    
+
     if (locID == undefined) {
       gc.acceptChange(pos, id);
       return;
@@ -38,7 +39,7 @@ export class PlayerCollision extends System {
       gc.acceptChange(pos, id);
       return;
     }
-    
+
     // if the player ran into an enemy... uh oh!
     if (locComponents.has(C.Enemy)) {
       this.ecs.setBB('game over', -1);
@@ -58,7 +59,7 @@ export class PlayerCollision extends System {
 
     // player has ran into food
     if (locComponents.has(C.Food)) {
-      player.stamina = Math.min(player.stamina + 25, 30);
+      player.stamina = Math.min(player.stamina + 25, MAX_STAMINA);
       this.ecs.removeEntity(locID);
       gc.acceptChange(pos, id);
       this.ecs.setBB('game over', 0);

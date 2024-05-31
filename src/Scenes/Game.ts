@@ -5,7 +5,7 @@ import { idToLevel } from "../levels";
 
 import { Engine, ECSScene, Key, CommonComponents, Utility } from "../WorldEngine";
 import { Collider } from "../Components/Collider";
-import { NUM_ROWS } from "../constants";
+import { MAX_STAMINA, NUM_ROWS } from "../constants";
 import { LevelDirector } from "../levelDirector";
 
 export class Game extends ECSScene {
@@ -76,7 +76,7 @@ export class Game extends ECSScene {
           this.addComponent(id, new C.Portal());
           this.setBB('portal id', id);
         } else if (char == '@') {
-          this.addComponent(id, new C.Player(30));
+          this.addComponent(id, new C.Player(MAX_STAMINA));
           this.addComponent(id, new C.Movable());
           this.setBB('player id', id);
         } else if (char == '*') {
@@ -129,6 +129,11 @@ export class Game extends ECSScene {
   }
 
   public onExit(engine: Engine): void {
+    const gameOver = this.getBB('game over');
+    const playerID = this.getBB('player id');
+    const lastColumn = this.getComponents(playerID).get(CommonComponents.Position2d).getX();
+    this.director.update(gameOver === 1.0, lastColumn);
+
     this.clear();
   }
 

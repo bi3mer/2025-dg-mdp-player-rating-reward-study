@@ -38,7 +38,6 @@ export class LevelDirector {
           break;
         }
       }
-
     }
 
     // Update baed on how the player did
@@ -51,7 +50,7 @@ export class LevelDirector {
       // add edge if the segemnt was completed by the player
       if (pc === 1) {
         if (!MDP.hasEdge(KEY_START, id)) {
-          MDP.addDefaultEdge(KEY_START, id, [[id, 1], [KEY_DEATH, 0.0]]);
+          MDP.addEdge(new CustomEdge(KEY_START, id, [[id, 1], [KEY_DEATH, 0.0]], []));
         }
       }
 
