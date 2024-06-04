@@ -1,6 +1,11 @@
 export const NUM_ROWS = 11;
 export const MAX_STAMINA = 40;
 
+export const PLAYER_LOST = -1;
+export const PLAYER_WON = 1;
+
+export const OFFSET = 8;
+
 // MDP keys
 export const KEY_START = "start";
 export const KEY_DEATH = "death";
