@@ -1,7 +1,7 @@
 import { Engine, System, Entity, Utility, CommonComponents } from "../WorldEngine";
 import { C } from "../Components";
 import { Enemy } from "../Components/Enemy";
-import { PLAYER_LOST } from "../constants";
+import { OFFSET_COL, OFFSET_ROW, PLAYER_LOST } from "../constants";
 
 export class EnemyAI extends System {
   componentsRequired = new Set<Function>([CommonComponents.Position2d, C.Enemy, C.Movable]);
@@ -19,6 +19,7 @@ export class EnemyAI extends System {
     const playerPos = this.ecs.getComponents(playerID).get(CommonComponents.Position2d);
     const gc: Utility.GridCollisions = this.ecs.getBB('grid collisions');
 
+    enemyloop:
     for (let id of entities) {
       const components = this.ecs.getComponents(id);
       const currentPos = components.get(CommonComponents.Position2d);
@@ -29,27 +30,24 @@ export class EnemyAI extends System {
       const distanceToStart = currentPos.euclideanDistance(startPos);
 
       if (distanceToPlayer <= 3 && distanceToStart <= 3) {
-        target = playerPos; // go towards the player
+        target = playerPos;
       } else {
-        target = startPos // go towards start position
+        target = startPos;
       }
 
       // move the enemy towards the player if the player is in range
       const moves = this.getMoves(currentPos, target);
-      if (moves.length == 0) {
-        continue;
-      }
-
       const size = moves.length;
+
       for (let i = 0; i < size; ++i) {
         const newPosition = currentPos.add(moves[i]);
-        if (gc.get(newPosition) === undefined) {
-          currentPos.setPos(newPosition);
-          gc.acceptChange(newPosition, id);
-          if (newPosition.equals(playerPos)) {
-            this.ecs.setBB('game over', PLAYER_LOST);
-          }
 
+        if (newPosition.equals(playerPos)) {
+          this.ecs.setBB('game over', PLAYER_LOST);
+          break enemyloop;
+        } else if (gc.get(newPosition) === undefined) {
+          currentPos.setPos(newPosition);
+          gc.acceptChange(currentPos, id);
           break;
         }
       }
@@ -65,63 +63,43 @@ export class EnemyAI extends System {
     target: CommonComponents.Position2d): Array<CommonComponents.Position2d> {
 
     let moves = new Array<CommonComponents.Position2d>();
-    const err = currentPos.getY();
-    const ecc = currentPos.getX();
+    const rr = currentPos.getY() - OFFSET_ROW;
+    const cc = currentPos.getX() - OFFSET_COL;
 
-    const edr = target.getY() - err;
-    const edc = target.getX() - ecc;
+    const dr = target.getY() - rr - OFFSET_ROW;
+    const dc = target.getX() - cc - OFFSET_COL;
 
-    if (edr == 0 && edc == 0) {
+    if (dr == 0 && dc == 0) {
       return moves;
     }
 
-    if (Math.abs(edr) > Math.abs(edc)) {
-      if (edr > 0) {
-        moves.push(new CommonComponents.Position2d(0, 1));
-      } else if (edr < 0) {
-        moves.push(new CommonComponents.Position2d(0, -1));
+    if (Math.abs(dr) > Math.abs(dc)) {
+      if (dr !== 0) {
+        moves.push(new CommonComponents.Position2d(0, Math.sign(dr)));
       }
-
-      if (edc > 0) {
-        moves.push(new CommonComponents.Position2d(1, 0));
-      } else if (edc < 0) {
-        moves.push(new CommonComponents.Position2d(-1, 0));
+      if (dc !== 0) {
+        moves.push(new CommonComponents.Position2d(Math.sign(dc), 0));
       }
-    } else if (Math.abs(edc) > Math.abs(edr)) {
-      if (edc > 0) {
-        moves.push(new CommonComponents.Position2d(1, 0));
-      } else if (edc < 0) {
-        moves.push(new CommonComponents.Position2d(-1, 0));
+    } else if (Math.abs(dc) > Math.abs(dr)) {
+      if (dc !== 0) {
+        moves.push(new CommonComponents.Position2d(Math.sign(dc), 0));
       }
-
-      if (edr > 0) {
-        moves.push(new CommonComponents.Position2d(0, 1));
-      } else if (edr < 0) {
-        moves.push(new CommonComponents.Position2d(0, -1));
+      if (dr !== 0) {
+        moves.push(new CommonComponents.Position2d(0, Math.sign(dr)));
       }
-    } else if ((ecc + err) % 2 == 0) {
-      if (edr > 0) {
-        moves.push(new CommonComponents.Position2d(0, 1));
-      } else if (edr < 0) {
-        moves.push(new CommonComponents.Position2d(0, -1));
+    } else if ((cc + rr) % 2 == 0) {
+      if (dr !== 0) {
+        moves.push(new CommonComponents.Position2d(0, Math.sign(dr)));
       }
-
-      if (edc > 0) {
-        moves.push(new CommonComponents.Position2d(1, 0));
-      } else if (edc < 0) {
-        moves.push(new CommonComponents.Position2d(-1, 0));
+      if (dc !== 0) {
+        moves.push(new CommonComponents.Position2d(Math.sign(dc), 0));
       }
     } else {
-      if (edc > 0) {
-        moves.push(new CommonComponents.Position2d(1, 0));
-      } else if (edc < 0) {
-        moves.push(new CommonComponents.Position2d(-1, 0));
+      if (dc !== 0) {
+        moves.push(new CommonComponents.Position2d(Math.sign(dc), 0));
       }
-
-      if (edr > 0) {
-        moves.push(new CommonComponents.Position2d(0, 1));
-      } else if (edr < 0) {
-        moves.push(new CommonComponents.Position2d(0, -1));
+      if (dr !== 0) {
+        moves.push(new CommonComponents.Position2d(0, Math.sign(dr)));
       }
     }
 

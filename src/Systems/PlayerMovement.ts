@@ -1,6 +1,6 @@
 import { Engine, System, Entity, Key, CommonComponents } from "../WorldEngine";
 import { C } from "../Components";
-import { OFFSET } from "../constants";
+import { OFFSET_COL } from "../constants";
 
 export class PlayerMovement extends System {
   componentsRequired = new Set<Function>([CommonComponents.Position2d, C.Render, C.Player]);
@@ -58,7 +58,7 @@ export class PlayerMovement extends System {
       }
 
       if (playerMoved) {
-        player.furthestColumn = Math.max(player.furthestColumn, pos.getX() - OFFSET);
+        player.furthestColumn = Math.max(player.furthestColumn, pos.getX() - OFFSET_COL);
         break;
       }
     }
