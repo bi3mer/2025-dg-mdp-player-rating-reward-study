@@ -94,6 +94,10 @@ export class LevelDirector {
         let maxDifficulty = 0;
         for (let jj = 0; jj < neighborsCount; ++jj) {
           const nodeName = neighbors[jj];
+          if (nodeName === '0_0_0') {
+            continue; // skip tutorial / basic level
+          }
+
           const n = MDP.getNode(nodeName) as CustomNode;
           const success = n.sumPercentCompleted / n.visitedCount;
 

@@ -36,7 +36,7 @@ typescript += "\n// ========= Nodes =========\n"
 typescript += "export const MDP = new Graph();\n\n"
 
 typescript += "MDP.addNode(new CustomNode(KEY_START, 0, 0, 0, false, [], -1));\n"
-typescript += "MDP.addNode(new CustomNode(KEY_DEATH, -1, -1, 0, true, [], -1));\n\n"
+typescript += "MDP.addNode(new CustomNode(KEY_DEATH, -5, -5, 0, true, [], -1));\n\n"
 
 # Rest of the nodes
 terminal_levels = []
