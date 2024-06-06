@@ -89,19 +89,22 @@ export class LevelDirector {
           break;
         }
 
-        let hardestNeighbor = "";
-        let maxReward = -10000;
+        let hardestNeighbor = '';
+        let maxSuccess = 10000; // TODO: rename
+        let maxDifficulty = 0;
         for (let jj = 0; jj < neighborsCount; ++jj) {
           const nodeName = neighbors[jj];
-          const d = (MDP.getNode(nodeName) as CustomNode).difficulty;
+          const n = MDP.getNode(nodeName) as CustomNode;
+          const success = n.sumPercentCompleted / n.visitedCount;
 
-          if (d > maxReward) {
+          if (success < maxSuccess || (success === maxSuccess && maxDifficulty < n.difficulty)) {
             hardestNeighbor = nodeName;
-            maxReward = d;
+            maxSuccess = success;
+            maxDifficulty = n.difficulty;
           }
         }
 
-        console.log('removing edge:', hardestNeighbor, maxReward);
+        console.log('removing edge:', hardestNeighbor, maxSuccess);
         MDP.removeEdge(KEY_START, hardestNeighbor);
       }
 

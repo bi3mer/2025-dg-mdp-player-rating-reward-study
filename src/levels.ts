@@ -8,9 +8,10 @@ import { KEY_DEATH, KEY_START } from "./constants";
 export const MDP = new Graph();
 
 MDP.addNode(new CustomNode(KEY_START, 0, 0, 0, false, [], -1));
-MDP.addNode(new CustomNode(KEY_DEATH, -1, -1, 0, true, [], -1));
+MDP.addNode(new CustomNode(KEY_DEATH, -1, -1, 0, true, [], -2));
 
-MDP.addNode(new CustomNode('0_0_0', -0.5192118226600986, -0.1871921182266011, 0, false, [], -1));
+// MDP.addNode(new CustomNode('0_0_0', -0.5192118226600986, -0.1871921182266011, 0, false, [], -1));
+MDP.addNode(new CustomNode('0_0_0', -1.0, -1.0, 0, false, [], -1));
 MDP.addNode(new CustomNode('0_1_0', -0.5238095238095237, -0.11904761904761896, 0, false, [], -1));
 MDP.addNode(new CustomNode('0_11_0', -0.6984126984126984, -0.04761904761904756, 0, false, [], -1));
 MDP.addNode(new CustomNode('0_12_0', -0.5306122448979592, -0.12244897959183665, 0, false, [], -1));
@@ -744,7 +745,7 @@ MDP.addEdge(new CustomEdge("6_12_0", "5_12_0", [["5_12_0", 0.99], [KEY_DEATH, 0.
 MDP.addEdge(new CustomEdge("1_17_0", "1_16_0", [["1_16_0", 0.99], [KEY_DEATH, 0.01]], ['-----&-----']));
 
 // ========= Level Segments =========
-export const idToLevel:{ [key: string]: string[] } = {
+export const idToLevel: { [key: string]: string[] } = {
   "2_8_0": [
     "XX----------XXX",
     "XX----------XXX",

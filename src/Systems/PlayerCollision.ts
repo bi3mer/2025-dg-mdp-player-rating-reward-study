@@ -1,6 +1,6 @@
 import { Engine, System, Entity, CommonComponents, Utility } from "../WorldEngine";
 import { C } from "../Components";
-import { CONTINUE, MAX_STAMINA, PLAYER_LOST, PLAYER_WON } from "../constants";
+import { CONTINUE, FOOD_STAMINA, MAX_STAMINA, PLAYER_LOST, PLAYER_WON } from "../constants";
 
 
 export class PlayerCollision extends System {
@@ -59,7 +59,7 @@ export class PlayerCollision extends System {
 
     // player has ran into food
     if (locComponents.has(C.Food)) {
-      player.stamina = Math.min(player.stamina + 25, MAX_STAMINA);
+      player.stamina = Math.min(player.stamina + FOOD_STAMINA, MAX_STAMINA);
       this.ecs.removeEntity(locID);
       gc.acceptChange(pos, id);
       this.ecs.setBB('game over', CONTINUE);
