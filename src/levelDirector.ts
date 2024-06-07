@@ -13,23 +13,27 @@ export class LevelDirector {
   private columnsPerLevel: number[] = [];
   private lossesInARow: number = 0;
   private playerWonLastRound: boolean = false;
+  private wins: number = 0;
+  private losses: number = 0;
 
   constructor() {
   }
 
   public update(playerWon: boolean, playerColumn: number): void {
-    console.log(`won: ${playerWon}, column: ${playerColumn}`);
-
     // Map out how far the player made it in the level
     const keysLength = this.keys.length;
     const percentCompleted: number[] = [];
     if (playerWon) {
+      this.lossesInARow = 0;
+      ++this.wins;
+
       for (let i = 0; i < keysLength; ++i) {
         percentCompleted.push(1);
       }
-
-      this.lossesInARow = 0;
     } else {
+      ++this.lossesInARow;
+      ++this.losses;
+
       let col = playerColumn;
       for (let i = 0; i < keysLength; ++i) {
         if (col > this.columnsPerLevel[i]) {
@@ -41,6 +45,11 @@ export class LevelDirector {
         }
       }
     }
+
+    // set what to optimze for
+    // TODO: I want there to be longer time for enjoyability to reign
+    const useDifficulty = this.wins > this.losses || this.lossesInARow > 2;
+    console.log(`use difficulty: ${useDifficulty}, ${this.wins} ?? ${this.losses}`);
 
     // Update baed on how the player did
     const pcLength = percentCompleted.length;
@@ -60,7 +69,7 @@ export class LevelDirector {
       // update reward based on how the player did
       ++node.visitedCount;
       node.sumPercentCompleted += pc;
-      node.updateReward();
+      node.updateReward(useDifficulty);
 
       // update incoming edges life and death probability
       const probLife = node.sumPercentCompleted / node.visitedCount;
@@ -80,7 +89,6 @@ export class LevelDirector {
     // Note that instead of reward or difficulty, we are concerned with maintaining
     // the structure of this smaller graph, so we use the depth of the node.
     if (!playerWon) {
-      ++this.lossesInARow;
       for (let i = 0; i < this.lossesInARow; ++i) {
         const neighbors = MDP.getNode(KEY_START).neighbors;
         const neighborsCount = neighbors.length;

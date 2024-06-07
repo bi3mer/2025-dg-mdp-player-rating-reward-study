@@ -19,7 +19,11 @@ export class CustomNode extends Node {
     this.sumPercentCompleted = 1;
   }
 
-  public updateReward(): void {
-    this.reward = this.difficulty * this.visitedCount;
+  public updateReward(useDifficulty: boolean): void {
+    if (useDifficulty) {
+      this.reward = this.difficulty * this.visitedCount;
+    } else {
+      this.reward = this.enjoyability * this.visitedCount;
+    }
   }
 }
