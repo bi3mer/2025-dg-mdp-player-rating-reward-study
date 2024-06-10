@@ -1,6 +1,6 @@
 import { Engine, System, Entity, Key, CommonComponents } from "../WorldEngine";
 import { C } from "../Components";
-import { OFFSET_COL } from "../constants";
+import { OFFSET_COL, PLAYER_LOST } from "../constants";
 
 export class PlayerMovement extends System {
   componentsRequired = new Set<Function>([CommonComponents.Position2d, C.Render, C.Player]);
@@ -50,9 +50,13 @@ export class PlayerMovement extends System {
           player.stamina -= 1;
           break;
         case Key.SPACE:
+          this.updateTimeStep();
           player.stamina -= 1;
           playerMoved = true;
-          this.updateTimeStep();
+
+          if (player.stamina <= 0) {
+            this.ecs.setBB('game over', PLAYER_LOST);
+          }
           break;
         // nothing to do in the default case
       }
