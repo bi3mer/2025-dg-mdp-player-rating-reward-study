@@ -6,14 +6,16 @@ import { Render } from "./Render";
 import { Switch } from "./Switch";
 import { Enemy } from "./Enemy";
 import { Food } from "./Food";
+import { Territory } from "./Territory";
 
 export const C = {
-    Collider,
-    Enemy,
-    Movable,
-    Player,
-    Portal,
-    Render,
-    Switch,
-    Food,
+  Collider,
+  Enemy,
+  Movable,
+  Player,
+  Portal,
+  Render,
+  Switch,
+  Food,
+  Territory,
 };

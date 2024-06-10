@@ -86,6 +86,7 @@ export class Game extends ECSScene {
         } else if (char == '#') {
           this.addComponent(id, new C.Movable());
           this.addComponent(id, new C.Enemy(new CommonComponents.Position2d(xPos, yPos)));
+          this.addComponent(id, new C.Territory(pos));
         } else if (char == '^') {
           this.addComponent(id, new C.Enemy(new CommonComponents.Position2d(xPos, yPos)));
         } else if (char == '/' || char == '\\' || char == 'X') {
