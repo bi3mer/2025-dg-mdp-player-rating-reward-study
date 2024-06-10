@@ -9,6 +9,11 @@ export const CONTINUE = 0;
 export const OFFSET_COL = 8;
 export const OFFSET_ROW = 7;
 
+export const ENEMY_RANGE = 3;
+
+export const GRID_X = 19.7;
+export const GRID_Y = 18.9;
+
 // MDP keys
 export const KEY_START = "start";
 export const KEY_DEATH = "death";

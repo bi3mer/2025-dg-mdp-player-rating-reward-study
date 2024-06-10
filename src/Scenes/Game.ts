@@ -124,6 +124,7 @@ export class Game extends ECSScene {
     this.addSystem(10, new S.PlayerCollision());
     this.addSystem(20, new S.EnemyAI());
     this.addSystem(90, new S.PortalSystem());
+    this.addSystem(95, new S.RenderEnemyTerritory());
     this.addSystem(100, new S.RenderSystem());
     this.addSystem(110, new S.RenderGameInfo());
     this.addSystem(900, new S.UpdatePlayerTurn());

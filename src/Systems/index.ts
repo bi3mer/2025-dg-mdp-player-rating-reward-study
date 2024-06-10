@@ -5,6 +5,7 @@ import { PortalSystem } from "./PortalSystem";
 import { RenderGameInfo } from "./RenderGameInfo";
 import { RenderSystem } from "./RenderSystem";
 import { UpdatePlayerTurn } from "./UpdatePlayerTurn";
+import { RenderEnemyTerritory } from "./RenderEnemyTerritory";
 
 // Systems
 export const S = {
@@ -15,4 +16,5 @@ export const S = {
   RenderSystem,
   UpdatePlayerTurn,
   RenderGameInfo,
+  RenderEnemyTerritory,
 };

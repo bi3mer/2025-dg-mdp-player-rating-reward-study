@@ -2,6 +2,7 @@ import { Engine, System, Entity, Utility, CommonComponents } from "../WorldEngin
 import { C } from "../Components";
 import { Enemy } from "../Components/Enemy";
 import { OFFSET_COL, OFFSET_ROW, PLAYER_LOST } from "../constants";
+import { ENEMY_RANGE } from "../constants";
 
 export class EnemyAI extends System {
   componentsRequired = new Set<Function>([CommonComponents.Position2d, C.Enemy, C.Movable]);
@@ -29,7 +30,7 @@ export class EnemyAI extends System {
       const distanceToPlayer = currentPos.euclideanDistance(playerPos);
       const distanceToStart = currentPos.euclideanDistance(startPos);
 
-      if (distanceToPlayer <= 3 && distanceToStart <= 3) {
+      if (distanceToPlayer <= ENEMY_RANGE && distanceToStart <= ENEMY_RANGE) {
         target = playerPos;
       } else {
         target = startPos;
