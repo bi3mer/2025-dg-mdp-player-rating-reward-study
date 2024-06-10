@@ -27,7 +27,7 @@ export class EnemyAI extends System {
       const startPos = components.get(Enemy).startPosition;
       let target: CommonComponents.Position2d;
 
-      const distanceToPlayer = currentPos.euclideanDistance(playerPos);
+      const distanceToPlayer = startPos.euclideanDistance(playerPos);
       const distanceToStart = currentPos.euclideanDistance(startPos);
 
       if (distanceToPlayer <= ENEMY_RANGE && distanceToStart <= ENEMY_RANGE) {
