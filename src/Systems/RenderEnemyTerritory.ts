@@ -1,10 +1,13 @@
 import { CommonComponents, Engine, System, Entity } from "../WorldEngine";
 import { C } from "../Components";
+import { ENEMY_PAUSE_COLOR, ENEMY_TURN_NEXT_COLOR } from "../constants";
 
 export class RenderEnemyTerritory extends System {
   componentsRequired = new Set<Function>([C.Territory]);
 
   update(engine: Engine, entities: Set<Entity>): void {
+    const bg = ((this.ecs.getBB('time step') + 1) % 3) === 0 ? ENEMY_TURN_NEXT_COLOR : ENEMY_PAUSE_COLOR;
+
     const xMod: number = this.ecs.getBB('x mod');
     const yMod: number = this.ecs.getBB('y mod');
 
@@ -23,7 +26,7 @@ export class RenderEnemyTerritory extends System {
       for (let i = 0; i < size; ++i) {
         const pos = territory[i];
 
-        engine.drawText(pos.getX() * xMod, pos.getY() * yMod, ' ', '#000000', true, '#FF000021');
+        engine.drawText(pos.getX() * xMod, pos.getY() * yMod, ' ', '#000000', true, bg);
       }
     }
   }

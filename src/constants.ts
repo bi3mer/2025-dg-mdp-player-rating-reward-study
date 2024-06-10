@@ -18,3 +18,7 @@ export const GRID_Y = 18.9;
 export const KEY_START = "start";
 export const KEY_DEATH = "death";
 export const KEY_END = "end";
+
+// colors
+export const ENEMY_TURN_NEXT_COLOR = '#FF000022';
+export const ENEMY_PAUSE_COLOR = '#FF440011';
