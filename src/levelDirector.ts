@@ -13,27 +13,28 @@ export class LevelDirector {
   private columnsPerLevel: number[] = [];
   private lossesInARow: number = 0;
   private playerWonLastRound: boolean = false;
-  private wins: number = 0;
-  private losses: number = 0;
+  private levelsPlayed: number = 0;
+  private optimizeDifficulty: boolean = false;
 
   constructor() {
   }
 
   public update(playerWon: boolean, playerColumn: number): void {
+    ++this.levelsPlayed;
+    if (this.levelsPlayed % 5 == 0) {
+      this.optimizeDifficulty = !this.optimizeDifficulty;
+    }
+
     // Map out how far the player made it in the level
     const keysLength = this.keys.length;
     const percentCompleted: number[] = [];
     if (playerWon) {
       this.lossesInARow = 0;
-      ++this.wins;
 
       for (let i = 0; i < keysLength; ++i) {
         percentCompleted.push(1);
       }
     } else {
-      ++this.lossesInARow;
-      ++this.losses;
-
       let col = playerColumn;
       for (let i = 0; i < keysLength; ++i) {
         if (col > this.columnsPerLevel[i]) {
@@ -45,11 +46,6 @@ export class LevelDirector {
         }
       }
     }
-
-    // set what to optimze for
-    // TODO: I want there to be longer time for enjoyability to reign
-    const useDifficulty = this.wins > this.losses || this.lossesInARow > 2;
-    console.log(`use difficulty: ${useDifficulty}, ${this.wins} ?? ${this.losses}`);
 
     // Update baed on how the player did
     const pcLength = percentCompleted.length;
@@ -69,7 +65,8 @@ export class LevelDirector {
       // update reward based on how the player did
       ++node.visitedCount;
       node.sumPercentCompleted += pc;
-      node.updateReward(useDifficulty);
+
+      node.updateReward(this.optimizeDifficulty);
 
       // update incoming edges life and death probability
       const probLife = node.sumPercentCompleted / node.visitedCount;
@@ -150,6 +147,7 @@ export class LevelDirector {
 
     // remove START id from keys since we won't use it after this 
     this.keys.splice(0, 1);
+    console.log(this.keys);
 
     // Update if the player is on the last level 
     this.playerIsOnLastLevel = this.keys.includes(KEY_END);
