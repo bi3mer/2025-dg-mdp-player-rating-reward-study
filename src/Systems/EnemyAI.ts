@@ -47,8 +47,8 @@ export class EnemyAI extends System {
           this.ecs.setBB('game over', PLAYER_LOST);
           break enemyloop;
         } else if (gc.get(newPosition) === undefined) {
-          currentPos.setPos(newPosition);
           gc.acceptChange(currentPos, id);
+          currentPos.setPos(newPosition);
           break;
         }
       }

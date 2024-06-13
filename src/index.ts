@@ -1,5 +1,6 @@
 import { Engine } from "./WorldEngine";
 import { Scene } from "./Scenes";
+import { Cookie } from "./WorldEngine/src/Utility";
 
 const engine = new Engine();
 engine.displayFPS = false;
@@ -16,8 +17,11 @@ const lostIndex = engine.addScene(playerLostScene);
 const wonIndex = engine.addScene(playerWonScene);
 const tutorialIndex = engine.addScene(tutorialScene)
 
-startScene.sceneIndex = gameIndex;
-startScene.sceneIndex = tutorialIndex;
+if (Cookie.get('completed tutorial') == 'true') {
+  startScene.sceneIndex = gameIndex;
+} else {
+  startScene.sceneIndex = tutorialIndex;
+}
 
 gameScene.playerLostIndex = lostIndex;
 gameScene.playerWonIndex = wonIndex;

@@ -10,9 +10,12 @@ export class Tutorial extends ECSScene {
     super();
     this.setBB('x mod', 20);
     this.setBB('y mod', 20);
+    this.setBB('turn', 0);
     this.setBB('tutorial over', false);
+    this.setBB('time step', 0);
 
     const playerID = this.addEntity();
+    this.setBB('player id', playerID);
     this.addComponent(playerID, new CommonComponents.Position2d(25, 5));
     this.addComponent(playerID, new C.Movable());
     this.addComponent(playerID, new C.Player(MAX_STAMINA, 0));
@@ -27,14 +30,13 @@ export class Tutorial extends ECSScene {
     // this.addSystem(90, new S.PortalSystem());
     // this.addSystem(95, new S.RenderEnemyTerritory());
     this.addSystem(0, new S.TutorialSystem(playerID, instructions));
-    this.addSystem(10, new S.TutorialRenderSystem());
+    this.addSystem(90, new S.TutorialRenderSystem());
     this.addSystem(100, new S.RenderSystem());
     // this.addSystem(110, new S.RenderGameInfo());
   }
 
   public customUpdate(engine: Engine): number {
     // TODO: set cookie so that the player doesn't have to replay the tutorial on reload
-    console.log(this.getBB('tutorial over'));
     if (this.getBB('tutorial over')) {
       console.log(this.gameSceneIndex, 'done');
       return this.gameSceneIndex;
