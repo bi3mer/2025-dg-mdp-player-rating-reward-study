@@ -27,4 +27,6 @@ gameScene.mainMenuIndex = startIndex;
 playerLostScene.sceneIndex = gameIndex;
 playerWonScene.sceneIndex = startIndex;
 
+tutorialScene.gameSceneIndex = gameIndex;
+
 engine.start();

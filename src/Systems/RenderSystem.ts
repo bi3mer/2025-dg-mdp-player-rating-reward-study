@@ -24,8 +24,9 @@ export class RenderSystem extends System {
 
     for (let entity of entities.values()) {
       // get components
-      const render = this.ecs.getComponents(entity).get(C.Render)
-      const pos = this.ecs.getComponents(entity).get(CommonComponents.Position2d);
+      const components = this.ecs.getComponents(entity);
+      const render = components.get(C.Render)
+      const pos = components.get(CommonComponents.Position2d);
 
       // render
       const char = render.character;
