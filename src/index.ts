@@ -17,11 +17,8 @@ const lostIndex = engine.addScene(playerLostScene);
 const wonIndex = engine.addScene(playerWonScene);
 const tutorialIndex = engine.addScene(tutorialScene)
 
-if (Cookie.get('completed tutorial') == 'true') {
-  startScene.sceneIndex = gameIndex;
-} else {
-  startScene.sceneIndex = tutorialIndex;
-}
+startScene.tutorialIndex = tutorialIndex;
+startScene.gameIndex = gameIndex;
 
 gameScene.playerLostIndex = lostIndex;
 gameScene.playerWonIndex = wonIndex;

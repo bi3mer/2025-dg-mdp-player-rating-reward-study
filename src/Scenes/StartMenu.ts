@@ -1,7 +1,10 @@
 import { Engine, Key, Scene } from "../WorldEngine";
+import { Cookie } from "../WorldEngine/src/Utility";
 
 export class StartMenu extends Scene {
   public sceneIndex: number = 0;
+  public gameIndex: number = 0;
+  public tutorialIndex: number = 0;
   public timer: number = 0;
 
   constructor() {
@@ -15,7 +18,12 @@ export class StartMenu extends Scene {
   public update(engine: Engine): number {
     if (engine.keyDown.has(Key.ENTER)) {
       engine.keyDown.clear();
-      return this.sceneIndex;
+
+      if (Cookie.get('completed tutorial')) {
+        return this.gameIndex;
+      }
+      return this.tutorialIndex;
+
     } else {
       engine.setFont(40);
       engine.drawText(360, 100, 'DungeonGrams')

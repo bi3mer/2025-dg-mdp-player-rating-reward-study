@@ -170,7 +170,7 @@ export class TutorialSystem extends System {
         const positionPlayer = components.get(Position2d);
         const p = components.get(Player);
 
-        if (this.ecs.getBB('game over') == PLAYER_LOST || p.stamina <= 0) {
+        if (this.ecs.getBB('game over') == PLAYER_LOST || p.stamina <= 0 || positionPlayer.equals(positionEnemy)) {
           positionPlayer.setX(positionSwitch.getX());
           positionPlayer.setY(positionSwitch.getY());
           p.stamina = MAX_STAMINA;
