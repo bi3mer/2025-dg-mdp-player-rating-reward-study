@@ -35,7 +35,7 @@ export class TutorialSystem extends System {
     this.steps.push([
       "Press 'A' to move your character, the '@' symbol, left.",
       (engine: Engine, player: Entity) => {
-        if (engine.isKeyDown(Key.A)) {
+        if (engine.isKeyDown(Key.A) || engine.isKeyDown(Key.LEFT)) {
           const pos = this.ecs.getComponents(player).get(Position2d);
           pos.setX(pos.getX() - 1);
           return true;
@@ -49,7 +49,7 @@ export class TutorialSystem extends System {
     this.steps.push([
       "Press 'D' to move your character right.",
       (engine: Engine, player: Entity) => {
-        if (engine.isKeyDown(Key.D)) {
+        if (engine.isKeyDown(Key.D) || engine.isKeyDown(Key.RIGHT)) {
           const pos = this.ecs.getComponents(player).get(Position2d);
           pos.setX(pos.getX() + 1);
           return true;
@@ -63,7 +63,7 @@ export class TutorialSystem extends System {
     this.steps.push([
       "Press 'S' to move your character down.",
       (engine: Engine, player: Entity) => {
-        if (engine.isKeyDown(Key.S)) {
+        if (engine.isKeyDown(Key.S) || engine.isKeyDown(Key.DOWN)) {
           const pos = this.ecs.getComponents(player).get(Position2d);
           pos.setY(pos.getY() + 1);
           return true;
@@ -77,7 +77,7 @@ export class TutorialSystem extends System {
     this.steps.push([
       "Press 'W' to move your character up.",
       (engine: Engine, player: Entity) => {
-        if (engine.isKeyDown(Key.W)) {
+        if (engine.isKeyDown(Key.W) || engine.isKeyDown(Key.UP)) {
           const pos = this.ecs.getComponents(player).get(Position2d);
           pos.setY(pos.getY() - 1);
           return true;
