@@ -28,3 +28,7 @@ export const LD_RANDOM = 'random';
 export const LD_ENJOYMENT = 'enjoyment';
 export const LD_DIFFICULTY = 'difficulty';
 export const LD_BOTH = 'both';
+
+// time info
+export const START_TIME = performance.now();
+export const MAX_TIME = 15 * 1000 * 60; // 1000 & 60 is ms to second to minute, and max of 15 minutes

@@ -3,6 +3,7 @@ import { PlayerLost } from "./PlayerLost";
 import { PlayerWon } from "./PlayerWon";
 import { StartMenu } from "./StartMenu";
 import { Tutorial } from "./Tutorial";
+import { Survey } from "./Survey";
 
 export const Scene = {
   Game,
@@ -10,4 +11,5 @@ export const Scene = {
   PlayerWon,
   StartMenu,
   Tutorial,
+  Survey,
 };

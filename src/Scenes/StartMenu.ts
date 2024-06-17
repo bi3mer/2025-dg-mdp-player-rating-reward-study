@@ -1,3 +1,4 @@
+import { MAX_TIME, START_TIME } from "../constants";
 import { Engine, Key, Scene } from "../WorldEngine";
 import { Cookie } from "../WorldEngine/src/Utility";
 
@@ -5,6 +6,7 @@ export class StartMenu extends Scene {
   public sceneIndex: number = 0;
   public gameIndex: number = 0;
   public tutorialIndex: number = 0;
+  public surveyIndex: number = 0;
   public timer: number = 0;
 
   constructor() {
@@ -16,6 +18,12 @@ export class StartMenu extends Scene {
   public onExit(engine: Engine): void { }
 
   public update(engine: Engine): number {
+
+    const currentTime = performance.now();
+    if (currentTime - START_TIME > MAX_TIME) {
+      return this.surveyIndex;
+    }
+
     if (engine.keyDown.has(Key.ENTER)) {
       engine.keyDown.clear();
 
