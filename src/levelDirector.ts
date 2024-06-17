@@ -1,10 +1,11 @@
-import { policyIteration } from "./GDM-TS";
+import { greedyPolicy, policyIteration } from "./GDM-TS";
 import { Edge } from "./GDM-TS/src/Graph/edge";
 import { choice } from "./GDM-TS/src/rand";
-import { KEY_DEATH, KEY_START, NUM_ROWS, KEY_END } from "./constants";
+import { KEY_DEATH, KEY_START, NUM_ROWS, KEY_END, LD_GREEDY, LD_DIFFICULTY, LD_ENJOYMENT, LD_BOTH } from "./constants";
 import { CustomNode } from "./customNode";
 import { MDP, idToLevel } from "./levels";
 import { CustomEdge } from "./customEdge";
+import { Policy } from "./GDM-TS/src/policy";
 
 export class LevelDirector {
   public playerIsOnLastLevel: boolean = false;
@@ -14,15 +15,37 @@ export class LevelDirector {
   private lossesInARow: number = 0;
   private playerWonLastRound: boolean = false;
   private levelsPlayed: number = 0;
-  private optimizeDifficulty: boolean = false;
+  private optimizeDifficulty: boolean;
+  private type: string;
 
   constructor() {
+    // randomly assign the level director type
+    this.type = choice([LD_GREEDY, LD_DIFFICULTY, LD_ENJOYMENT, LD_BOTH]);
+    console.log(this.type);
+
+    // start with optimize for enjoyment 
+    if (this.type == LD_DIFFICULTY) {
+      this.optimizeDifficulty = true;
+    } else {
+      this.optimizeDifficulty = false;
+    }
+
+    // update reward for all the nodes
+    for (let key in MDP.nodes) {
+      (MDP.nodes[key] as CustomNode).updateReward(this.optimizeDifficulty);
+    }
   }
 
   public update(playerWon: boolean, playerColumn: number): void {
     ++this.levelsPlayed;
-    if (this.levelsPlayed % 5 == 0) {
+    if (this.levelsPlayed % 5 == 0 && (this.type == LD_GREEDY || this.type == LD_BOTH)) {
+      // switch what we are optimizing for
       this.optimizeDifficulty = !this.optimizeDifficulty;
+
+      // update reward for all the nodes
+      for (let key in MDP.nodes) {
+        (MDP.nodes[key] as CustomNode).updateReward(this.optimizeDifficulty);
+      }
     }
 
     // Map out how far the player made it in the level
@@ -116,15 +139,18 @@ export class LevelDirector {
         console.log('removing edge:', hardestNeighbor, maxSuccess);
         MDP.removeEdge(KEY_START, hardestNeighbor);
       }
-
-      console.log('=======================');
     }
 
     this.playerWonLastRound = playerWon;
   }
 
   public get(levelSegments: number): string[] {
-    const pi = policyIteration(MDP, 0.95, true, true, 20);
+    let pi: Policy;
+    if (this.type == LD_GREEDY) {
+      pi = greedyPolicy(MDP);
+    } else {
+      pi = policyIteration(MDP, 0.95, true, true, 20);
+    }
     this.columnsPerLevel = [];
 
     // If player won, don't start from a level that they have definitely 
