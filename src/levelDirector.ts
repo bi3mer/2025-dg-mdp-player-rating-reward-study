@@ -38,7 +38,9 @@ export class LevelDirector {
 
   public update(playerWon: boolean, playerColumn: number): void {
     ++this.levelsPlayed;
-    if (this.levelsPlayed % 5 == 0 && (this.type == LD_RANDOM || this.type == LD_BOTH)) {
+    console.log(this.levelsPlayed, this.type);
+    if (this.levelsPlayed % 3 == 0 && this.type == LD_BOTH) {
+      console.log('switch!');
       // switch what we are optimizing for
       this.optimizeDifficulty = !this.optimizeDifficulty;
 
