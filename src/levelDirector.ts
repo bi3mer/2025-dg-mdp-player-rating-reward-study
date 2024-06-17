@@ -1,7 +1,7 @@
-import { greedyPolicy, policyIteration } from "./GDM-TS";
+import { greedyPolicy, policyIteration, randomPolicy } from "./GDM-TS";
 import { Edge } from "./GDM-TS/src/Graph/edge";
 import { choice } from "./GDM-TS/src/rand";
-import { KEY_DEATH, KEY_START, NUM_ROWS, KEY_END, LD_GREEDY, LD_DIFFICULTY, LD_ENJOYMENT, LD_BOTH } from "./constants";
+import { KEY_DEATH, KEY_START, NUM_ROWS, KEY_END, LD_RANDOM, LD_DIFFICULTY, LD_ENJOYMENT, LD_BOTH } from "./constants";
 import { CustomNode } from "./customNode";
 import { MDP, idToLevel } from "./levels";
 import { CustomEdge } from "./customEdge";
@@ -20,7 +20,7 @@ export class LevelDirector {
 
   constructor() {
     // randomly assign the level director type
-    this.type = choice([LD_GREEDY, LD_DIFFICULTY, LD_ENJOYMENT, LD_BOTH]);
+    this.type = choice([LD_RANDOM, LD_DIFFICULTY, LD_ENJOYMENT, LD_BOTH]);
     console.log(this.type);
 
     // start with optimize for enjoyment 
@@ -38,7 +38,7 @@ export class LevelDirector {
 
   public update(playerWon: boolean, playerColumn: number): void {
     ++this.levelsPlayed;
-    if (this.levelsPlayed % 5 == 0 && (this.type == LD_GREEDY || this.type == LD_BOTH)) {
+    if (this.levelsPlayed % 5 == 0 && (this.type == LD_RANDOM || this.type == LD_BOTH)) {
       // switch what we are optimizing for
       this.optimizeDifficulty = !this.optimizeDifficulty;
 
@@ -146,8 +146,9 @@ export class LevelDirector {
 
   public get(levelSegments: number): string[] {
     let pi: Policy;
-    if (this.type == LD_GREEDY) {
-      pi = greedyPolicy(MDP);
+    if (this.type == LD_RANDOM) {
+      pi = randomPolicy(MDP);
+      console.log(pi);
     } else {
       pi = policyIteration(MDP, 0.95, true, true, 20);
     }

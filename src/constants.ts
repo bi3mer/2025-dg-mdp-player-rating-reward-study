@@ -24,7 +24,7 @@ export const ENEMY_TURN_NEXT_COLOR = '#FF000022';
 export const ENEMY_PAUSE_COLOR = '#FF440011';
 
 // level director types
-export const LD_GREEDY = 'greedy';
+export const LD_RANDOM = 'random';
 export const LD_ENJOYMENT = 'enjoyment';
 export const LD_DIFFICULTY = 'difficulty';
 export const LD_BOTH = 'both';
