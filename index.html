@@ -12,15 +12,44 @@
   <br/>
   
   <center>
-  <canvas id="canvas"  width="1000" height="480" style="border:1px solid gray"></canvas>
+    <canvas id="canvas"  width="1000" height="480" style="border:1px solid gray"></canvas>
   </center>
+  <div id="survey" style="color: white; margin-left: 50px; display: none">
+    <p>
+        Please fill out the following survey. Afterwards, the code will be presented.
+    </p>
+    <form >
+        <label for="year">Birth Year</label>
+        <select id="year" name="year"></select>
 
+        
+    </form>
+  </div>
   <br/>
-  <center style="color: white;">
-      Turk code here
-  </center>
 
   <script src="dist/bundle.js"></script>
+    <style>
+      th, td { padding: 10px; }
+    </style>
 
+    <script>
+      window.addEventListener("load", (event) => {
+        var yearForm = document.getElementById("year");
+
+        for (var year = 1950; year < 2024; ++year) {
+          var option = document.createElement('option');
+          option.value = year;
+          option.innerHTML = year;
+
+          if (year === 1990) {
+            option.selected = true;
+          }
+          
+          yearForm.appendChild(option);
+        }
+        
+        document.get
+      });
+    </script>
 </body>
 </html>
