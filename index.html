@@ -28,34 +28,17 @@
           <br/>
           <br/>
           <!-- Survey questions placed here -->
+          <!-- <button type='submit' form='questionnaire'></button> -->
       </form>
+      <p id='errorText' style="color: red">
+      </p>
     </center>
   </div>
   <br/>
 
   <script src="dist/bundle.js"></script>
-    <style>
-      th, td { padding: 10px; }
-    </style>
-
-    <script>
-      window.addEventListener("load", (event) => {
-        var yearForm = document.getElementById("year");
-
-        for (var year = 1950; year < 2024; ++year) {
-          var option = document.createElement('option');
-          option.value = year;
-          option.innerHTML = year;
-
-          if (year === 1990) {
-            option.selected = true;
-          }
-          
-          yearForm.appendChild(option);
-        }
-        
-        document.get
-      });
-    </script>
+  <style>
+    th, td { padding: 10px; }
+  </style>
 </body>
 </html>
