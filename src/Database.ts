@@ -1,4 +1,3 @@
-/**
 import { initializeApp } from "firebase/app";
 import { addDoc, getFirestore, collection, Firestore } from "firebase/firestore";
 
@@ -24,14 +23,13 @@ export class DB {
 
   public static submitAttempt() {
     const submission = {
-      // "diedFrom": Global.diedFrom,
-      // "stamina-left": Global.staminaLeft,
-      // "time": Global.time,
-      // "won": Global.playerWon,
-      // "attemptID": Global.attempts,
-      // "playerID": Global.playerID,
-      // "levelID": Global.playerCurrentLevel,
-      // "isDev": Global.isDev,
+      "diedFrom": Global.diedFrom,
+      "stamina-left": Global.staminaLeft,
+      "time": Global.time,
+      "won": Global.playerWon,
+      "attemptID": Global.attempts,
+      "playerID": Global.playerID,
+      "levels": Global.levels
     };
 
     if (Global.playerID === 'null') {
@@ -41,22 +39,11 @@ export class DB {
     }
   }
 
-  public static submitSurvey(fun: number, difficulty: number) {
-    const submission = {
-      "fun": fun,
-      "difficulty": difficulty,
-      "attempts": Global.attempts, // Not strictly necessary, but convenient
-      "playerGaveUp": Global.playerGaveUp,
-      "playerID": Global.playerID,
-      "levelID": Global.playerCurrentLevel,
-      "isDev": Global.isDev,
-    };
+  public static submitSurvey(survey: { [key: string]: string }) {
+    survey['playerID'] = Global.playerID;
 
-    if (Global.playerID === 'null') {
-      console.log('Data not submitted:', submission);
-    } else {
-      addDoc(collection(DB.db, `survey_${Global.version}`), submission);
-    }
+    addDoc(collection(DB.db, `survey_${Global.version}`), survey);
+
+    console.log('Survey submitted.');
   }
 }
-*/

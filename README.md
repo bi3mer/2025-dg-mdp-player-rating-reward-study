@@ -1,5 +1,7 @@
 # 2024_aiide_demdp
 
-Notes for me:
+TODO:
 
-- level director does not have the ability to switch rewards
+- years needs to default to no value, so that the user has to set it in the survey
+- not tracking any information as the player plays
+- implementation for server of logging that information not implemented  

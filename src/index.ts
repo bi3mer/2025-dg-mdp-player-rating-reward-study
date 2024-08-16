@@ -1,8 +1,12 @@
 import { Engine } from "./WorldEngine";
 import { Scene } from "./Scenes";
 import { Global } from "./Global";
+import { DB } from "./Database";
 
+// init db
+DB.init();
 
+// set up player id
 if (location.hostname === "localhost" || location.hostname === "127.0.0.1" || location.hostname === '') {
   Global.playerID = "-1";
 } else {
@@ -16,6 +20,7 @@ if (location.hostname === "localhost" || location.hostname === "127.0.0.1" || lo
 
 console.log(`Player ID: ${Global.playerID}`);
 
+// set up the engine
 const engine = new Engine();
 engine.displayFPS = false;
 

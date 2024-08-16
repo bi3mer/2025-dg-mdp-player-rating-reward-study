@@ -1,4 +1,5 @@
 
+import { DB } from "../Database";
 import { QUESTIONS } from "../questions";
 import { fischerYatesShuffle } from "../Random";
 import { Engine, Scene } from "../WorldEngine";
@@ -79,7 +80,7 @@ export class Survey extends Scene {
     questionnaire!.onsubmit = (event) => {
       event.preventDefault();
 
-      let answers = [];
+      let answers: { [key: string]: string } = {};
 
       for (i = 0; i < QUESTIONS.length; ++i) {
         const Q = QUESTIONS[i];
@@ -90,7 +91,7 @@ export class Survey extends Scene {
         for (let j = 0; j < 7; ++j) { // size will always be 7, look at radio buttons above
           const E = elements[j] as HTMLInputElement;
           if (E.checked) {
-            answers.push([Q, E.value])
+            answers[Q] = E.value;
             found = true;
             break;
           }
@@ -99,8 +100,11 @@ export class Survey extends Scene {
         document.getElementById(N)!.style.borderColor = found ? 'white' : 'yellow';
       }
 
-      if (answers.length == QUESTIONS.length) {
-        console.log('submit!');
+      if (Object.keys(answers).length == QUESTIONS.length) {
+        DB.submitSurvey(answers);
+        console.log('Survey submitted');
+        document.getElementById('survey')!.style.display = "none";
+        document.getElementById('complete')!.style.display = "block";
       } else {
         document.getElementById('errorText')!.innerText = 'Please fill in the whole questionnaire. Yellow boxes indicate missed answers.';
       }
