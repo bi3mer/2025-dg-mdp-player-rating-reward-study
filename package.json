@@ -15,5 +15,8 @@
   },
   "version": "1.0.0",
   "description": "DungeonGrams",
-  "name": "DungeonGrams"
+  "name": "DungeonGrams",
+  "dependencies": {
+    "firebase": "^10.13.0"
+  }
 }

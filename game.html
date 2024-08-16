@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport"
+      content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>CB: DungeonGrams-TS</title>
+</head>
+<body style="background-color:black;">
+  <br/>
+  <br/>
+  
+  <center>
+    <canvas id="canvas"  width="1000" height="480" style="border:1px solid gray"></canvas>
+  </center>
+  <div id="survey" style="color: white; margin-left: 50px; display: none; font-size: 20px;">
+    <center>
+      <p>
+          Please fill out the following survey. Afterwards, your code will be available after submission.
+      </p>
+      <form id="questionnaire">
+          <label for="year"><b>Birth Year</b></label>
+          <br/>
+          <select id="year" name="year" style="width:150px;"></select>
+
+          <br/>
+          <br/>
+          <br/>
+          <!-- Survey questions placed here -->
+          <!-- <button type='submit' form='questionnaire'></button> -->
+      </form>
+      <p id='errorText' style="color: red">
+      </p>
+    </center>
+  </div>
+  <br/>
+
+  <script src="dist/bundle.js"></script>
+  <style>
+    th, td { padding: 10px; }
+  </style>
+</body>
+</html>

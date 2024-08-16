@@ -1,6 +1,20 @@
 import { Engine } from "./WorldEngine";
 import { Scene } from "./Scenes";
-import { Cookie } from "./WorldEngine/src/Utility";
+import { Global } from "./Global";
+
+
+if (location.hostname === "localhost" || location.hostname === "127.0.0.1" || location.hostname === '') {
+  Global.playerID = "-1";
+} else {
+  const urlParams = new URLSearchParams(window.location.search);
+  if (urlParams.has('id')) {
+    Global.playerID = crypto.randomUUID();
+  } else {
+    Global.playerID = "-1";
+  }
+}
+
+console.log(`Player ID: ${Global.playerID}`);
 
 const engine = new Engine();
 engine.displayFPS = false;
