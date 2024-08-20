@@ -80,7 +80,7 @@ export class Survey extends Scene {
     questionnaire!.onsubmit = (event) => {
       event.preventDefault();
 
-      let answers: { [key: string]: string } = {};
+      let answers: { [key: string]: Number } = {};
 
       for (i = 0; i < QUESTIONS.length; ++i) {
         const Q = QUESTIONS[i];
@@ -91,13 +91,13 @@ export class Survey extends Scene {
         for (let j = 0; j < 7; ++j) { // size will always be 7, look at radio buttons above
           const E = elements[j] as HTMLInputElement;
           if (E.checked) {
-            answers[Q] = E.value;
+            answers[Q] = Number(E.value);
             found = true;
             break;
           }
         }
 
-        document.getElementById(N)!.style.borderColor = found ? 'white' : 'yellow';
+        document.getElementById(N)!.style.borderColor = found ? 'white' : 'red';
       }
 
       if (Object.keys(answers).length == QUESTIONS.length) {
@@ -106,7 +106,7 @@ export class Survey extends Scene {
         document.getElementById('survey')!.style.display = "none";
         document.getElementById('complete')!.style.display = "block";
       } else {
-        document.getElementById('errorText')!.innerText = 'Please fill in the whole questionnaire. Yellow boxes indicate missed answers.';
+        document.getElementById('errorText')!.innerText = 'Please fill in the whole questionnaire. Red boxes indicate missed answers.';
       }
     };
 

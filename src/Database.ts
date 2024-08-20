@@ -39,7 +39,7 @@ export class DB {
     }
   }
 
-  public static submitSurvey(survey: { [key: string]: string }) {
+  public static submitSurvey(survey: { [key: string]: any }) {
     survey['playerID'] = Global.playerID;
 
     addDoc(collection(DB.db, `survey_${Global.version}`), survey);
