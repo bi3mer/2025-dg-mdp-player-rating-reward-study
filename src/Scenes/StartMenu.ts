@@ -47,7 +47,6 @@ export class StartMenu extends Scene {
       engine.drawText(250, 400, 'R to restart', 'green');
       engine.drawText(250, 425, 'Q to quit', 'green');
 
-
       return -1;
     }
   }

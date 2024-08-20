@@ -41,6 +41,7 @@ export class DB {
 
   public static submitSurvey(survey: { [key: string]: any }) {
     survey['playerID'] = Global.playerID;
+    survey['director'] = Global.director;
 
     addDoc(collection(DB.db, `survey_${Global.version}`), survey);
 

@@ -6,6 +6,7 @@ import { CustomNode } from "./customNode";
 import { MDP, idToLevel } from "./levels";
 import { CustomEdge } from "./customEdge";
 import { Policy } from "./GDM-TS/src/policy";
+import { Global } from "./Global";
 
 export class LevelDirector {
   public playerIsOnLastLevel: boolean = false;
@@ -21,7 +22,7 @@ export class LevelDirector {
   constructor() {
     // randomly assign the level director type
     this.type = choice([LD_RANDOM, LD_DIFFICULTY, LD_ENJOYMENT, LD_BOTH]);
-    console.log(this.type);
+    Global.director = this.type;
 
     // start with optimize for enjoyment 
     if (this.type == LD_DIFFICULTY) {

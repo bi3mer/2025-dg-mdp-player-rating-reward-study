@@ -11,5 +11,6 @@ export class Global {
   public static playerGaveUp = false;
   public static gamesPlayed = 0;
   public static maxGames = 11;
+  public static director = "-1";
   public static version = "0.0.0";
 }
