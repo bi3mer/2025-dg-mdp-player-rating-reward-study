@@ -143,7 +143,7 @@ export class TutorialSystem extends System {
 
           this.ecs.addComponent(e, positionEnemy);
           this.ecs.addComponent(e, new Render('#'));
-          this.ecs.addComponent(e, new Enemy(new Position2d(positionEnemy.getX(), positionEnemy.getY())));
+          this.ecs.addComponent(e, new Enemy("Enemy", new Position2d(positionEnemy.getX(), positionEnemy.getY())));
           this.ecs.addComponent(e, new Territory(positionEnemy));
           this.ecs.addComponent(e, new Movable());
 
@@ -171,20 +171,31 @@ export class TutorialSystem extends System {
         const p = components.get(Player);
 
         if (this.ecs.getBB('game over') == PLAYER_LOST || p.stamina <= 0 || positionPlayer.equals(positionEnemy)) {
+          // reset player position
           positionPlayer.setX(positionSwitch.getX());
           positionPlayer.setY(positionSwitch.getY());
-          p.stamina = MAX_STAMINA;
-          this.ecs.setBB('game over', CONTINUE);
+          
+          // reset enemy position
           positionEnemy.setX(28);
           positionEnemy.setY(8);
+
+          // reset player stamina and game state
+          p.stamina = MAX_STAMINA;
+          this.ecs.setBB('game over', CONTINUE);
+
+          // "helpful" hint for the player
           this.ecs.getComponents(this.textID).get(C.Text).text = 'Try to avoid the enemy and not run out of stamina!';
         }
 
         if (positionPlayer.equals(positionPortal)) {
           Cookie.set('completed tutorial', 'true');
           console.log(Cookie.get('completed tutorial'));
+
+          // TODO: tutorial logging
+
           return true;
         }
+
         return false;
       }
     ]);

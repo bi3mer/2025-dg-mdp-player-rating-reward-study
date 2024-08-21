@@ -3,6 +3,8 @@ import { C } from "../Components";
 import { Enemy } from "../Components/Enemy";
 import { OFFSET_COL, OFFSET_ROW, PLAYER_LOST } from "../constants";
 import { ENEMY_RANGE } from "../constants";
+import { Global } from "../Global";
+import { Player } from "../Components/Player";
 
 export class EnemyAI extends System {
   componentsRequired = new Set<Function>([CommonComponents.Position2d, C.Enemy, C.Movable]);
@@ -17,7 +19,8 @@ export class EnemyAI extends System {
 
     // get the player position and grid collision tool
     const playerID = this.ecs.getBB('player id');
-    const playerPos = this.ecs.getComponents(playerID).get(CommonComponents.Position2d);
+    const player = this.ecs.getComponents(playerID);
+    const playerPos = player.get(CommonComponents.Position2d);
     const gc: Utility.GridCollisions = this.ecs.getBB('grid collisions');
 
     enemyloop:
@@ -44,6 +47,9 @@ export class EnemyAI extends System {
         const newPosition = currentPos.add(moves[i]);
 
         if (newPosition.equals(playerPos)) {
+          Global.staminaLeft = player.get(Player).stamina;
+          Global.diedFrom = components.get(Enemy).type;
+
           this.ecs.setBB('game over', PLAYER_LOST);
           break enemyloop;
         } else if (gc.get(newPosition) === undefined) {

@@ -1,6 +1,7 @@
 import { Engine, System, Entity, CommonComponents, Utility } from "../WorldEngine";
 import { C } from "../Components";
 import { CONTINUE, FOOD_STAMINA, MAX_STAMINA, PLAYER_LOST, PLAYER_WON } from "../constants";
+import { Global } from "../Global";
 
 
 export class PlayerCollision extends System {
@@ -18,6 +19,9 @@ export class PlayerCollision extends System {
     // has hit a portal or food, which is handled below.
     const player = components.get(C.Player);
     if (player.stamina <= 0) {
+      Global.diedFrom = 'Stamina';
+      Global.staminaLeft = 0;
+
       this.ecs.setBB('game over', PLAYER_LOST);
     }
 
@@ -42,6 +46,9 @@ export class PlayerCollision extends System {
 
     // if the player ran into an enemy... uh oh!
     if (locComponents.has(C.Enemy)) {
+      Global.diedFrom = locComponents.get(C.Enemy).type;
+      Global.staminaLeft = player.stamina;
+
       this.ecs.setBB('game over', PLAYER_LOST);
       return;
     }
@@ -49,6 +56,10 @@ export class PlayerCollision extends System {
     // player ran into the portal.
     if (locComponents.has(C.Portal)) {
       if (this.ecs.getBB('switch count') == 0) {
+        Global.diedFrom = "";
+        Global.playerWon = true;
+        Global.staminaLeft = player.stamina;
+        
         this.ecs.setBB('game over', PLAYER_WON);
       } else {
         pos.rejectChange();
@@ -62,6 +73,7 @@ export class PlayerCollision extends System {
       player.stamina = Math.min(player.stamina + FOOD_STAMINA, MAX_STAMINA);
       this.ecs.removeEntity(locID);
       gc.acceptChange(pos, id);
+
       this.ecs.setBB('game over', CONTINUE);
 
       return;

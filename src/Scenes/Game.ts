@@ -8,6 +8,8 @@ import { Collider } from "../Components/Collider";
 import { MAX_STAMINA, NUM_ROWS } from "../constants";
 import { LevelDirector } from "../levelDirector";
 import { Player } from "../Components/Player";
+import { DB } from "../Database";
+import { Global } from "../Global";
 
 export class Game extends ECSScene {
   public playerWonIndex = 0;
@@ -16,6 +18,7 @@ export class Game extends ECSScene {
   public mainMenuIndex = 0;
 
   private director: LevelDirector;
+  private start: number = 0;
 
   constructor() {
     super();
@@ -85,10 +88,10 @@ export class Game extends ECSScene {
           switchCount += 1;
         } else if (char == '#') {
           this.addComponent(id, new C.Movable());
-          this.addComponent(id, new C.Enemy(new CommonComponents.Position2d(xPos, yPos)));
+          this.addComponent(id, new C.Enemy("Enemy", new CommonComponents.Position2d(xPos, yPos)));
           this.addComponent(id, new C.Territory(pos));
         } else if (char == '^') {
-          this.addComponent(id, new C.Enemy(new CommonComponents.Position2d(xPos, yPos)));
+          this.addComponent(id, new C.Enemy("Spike", new CommonComponents.Position2d(xPos, yPos)));
         } else if (char == '/' || char == '\\' || char == 'X') {
           this.addComponent(id, new Collider());
         } else if (char == '&') {
@@ -129,6 +132,12 @@ export class Game extends ECSScene {
     this.addSystem(100, new S.RenderSystem());
     this.addSystem(110, new S.RenderGameInfo());
     this.addSystem(900, new S.UpdatePlayerTurn());
+
+    Global.diedFrom = "";
+    Global.playerWon = false;
+    Global.levels = this.director.keys;
+
+    this.start = Date.now();
   }
 
   public onExit(engine: Engine): void {
@@ -137,15 +146,20 @@ export class Game extends ECSScene {
     const furthestColumn = this.getComponents(playerID).get(Player).furthestColumn;
     this.director.update(gameOver === 1.0, furthestColumn);
 
+    ++Global.order;
+
     this.clear();
   }
 
   public customUpdate(engine: Engine): number {
     const gameOver = this.getBB('game over')
-    if (gameOver == -1) {
-      return this.playerLostIndex;
-    } else if (gameOver == 1) {
-      return this.playerWonIndex;
+    if (gameOver == -1 || gameOver == 1) {
+      const end = Date.now();
+      const elapsed = (end - this.start) / 1000;
+      Global.time = elapsed;
+      DB.submitAttempt();
+
+      return gameOver == 1 ? this.playerWonIndex : this.playerLostIndex;
     } else if (engine.keyDown.has(Key.R)) {
       return this.selfIndex;
     } else if (engine.keyDown.has(Key.Q)) {

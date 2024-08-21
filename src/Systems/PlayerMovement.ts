@@ -1,6 +1,7 @@
 import { Engine, System, Entity, Key, CommonComponents } from "../WorldEngine";
 import { C } from "../Components";
 import { OFFSET_COL, PLAYER_LOST } from "../constants";
+import { Global } from "../Global";
 
 export class PlayerMovement extends System {
   componentsRequired = new Set<Function>([CommonComponents.Position2d, C.Render, C.Player]);
@@ -11,7 +12,7 @@ export class PlayerMovement extends System {
   }
 
   update(engine: Engine, entities: Set<Entity>): void {
-    let playerID = entities.values().next().value;
+    const playerID = entities.values().next().value as Entity;
     const components = this.ecs.getComponents(playerID);
     const player = components.get(C.Player);
     let pos = components.get(CommonComponents.Position2d);
@@ -55,6 +56,7 @@ export class PlayerMovement extends System {
           playerMoved = true;
 
           if (player.stamina <= 0) {
+            Global.diedFrom = 'Stamina';
             this.ecs.setBB('game over', PLAYER_LOST);
           }
           break;

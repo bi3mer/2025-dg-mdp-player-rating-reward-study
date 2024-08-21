@@ -27,9 +27,10 @@ export class DB {
       "stamina-left": Global.staminaLeft,
       "time": Global.time,
       "won": Global.playerWon,
-      "attemptID": Global.attempts,
+      "order": Global.order,
       "playerID": Global.playerID,
-      "levels": Global.levels
+      "levels": Global.levels,
+      "director": Global.director
     };
 
     if (Global.playerID === 'null') {

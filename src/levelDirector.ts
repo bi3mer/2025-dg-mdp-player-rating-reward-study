@@ -10,8 +10,8 @@ import { Global } from "./Global";
 
 export class LevelDirector {
   public playerIsOnLastLevel: boolean = false;
+  public keys: string[] = [];
 
-  private keys: string[] = [];
   private columnsPerLevel: number[] = [];
   private lossesInARow: number = 0;
   private playerWonLastRound: boolean = false;
@@ -212,7 +212,9 @@ export class LevelDirector {
       }
     }
 
+    // This is nice for debugging, but not strictly necessary in the final product
     console.log(lvl.join("\n"));
+
     return lvl;
   }
 }
