@@ -12,7 +12,14 @@
   <br/>
   
   <center>
-    <canvas id="canvas"  width="1000" height="480" style="border:1px solid gray"></canvas>
+    <div id="game">
+      <canvas id="canvas"  width="1000" height="480" style="border:1px solid gray"></canvas>
+      <br/>
+      <br/>
+      <button id="done">
+          Go to Survey
+      </button>
+    </div>
   </center>
   <div id="survey" style="color: white; margin-left: 50px; display: none; font-size: 20px;">
     <center>
@@ -20,13 +27,6 @@
           Please fill out the following survey. Afterwards, your code will be available after submission.
       </p>
       <form id="questionnaire">
-          <label for="year"><b>Birth Year</b></label>
-          <br/>
-          <select id="year" name="year" style="width:150px;"></select>
-
-          <br/>
-          <br/>
-          <br/>
           <!-- Survey questions placed here -->
           <!-- <button type='submit' form='questionnaire'></button> -->
       </form>
