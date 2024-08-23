@@ -2,5 +2,4 @@
 
 TODO:
 
-- remove age
 - need something to log for the tutorial the tutorial
