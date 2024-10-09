@@ -23,11 +23,14 @@ export const KEY_END = "end";
 export const ENEMY_TURN_NEXT_COLOR = '#FF000022';
 export const ENEMY_PAUSE_COLOR = '#FF440011';
 
-// level director types
+// level director: types
 export const LD_RANDOM = 'random';
 export const LD_ENJOYMENT = 'enjoyment';
 export const LD_DIFFICULTY = 'difficulty';
 export const LD_BOTH = 'both';
+
+// level director: how often to switch optimization types between enjoyment and difficulty
+export const LD_SWITCH = 3;
 
 // time info
 export const START_TIME = performance.now();
