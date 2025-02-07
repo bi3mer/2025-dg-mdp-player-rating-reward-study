@@ -1,3 +1,4 @@
+import { Collider } from "../Components/Collider";
 import { Enemy } from "../Components/Enemy";
 import { Movable } from "../Components/Movable";
 import { Player } from "../Components/Player";
@@ -12,6 +13,8 @@ import { EnemyAI } from "./EnemyAI";
 import { PlayerMovement } from "./PlayerMovement";
 import { RenderEnemyTerritory } from "./RenderEnemyTerritory";
 import { RenderGameInfo } from "./RenderGameInfo";
+import { VisibleText } from "../Components/VisibleText";
+import { PlayerCollision } from "./PlayerCollision";
 
 export class TutorialSystem extends System {
   componentsRequired = new Set<Function>([]);
@@ -25,6 +28,7 @@ export class TutorialSystem extends System {
 
   constructor(player: Entity, text: Entity) {
     super();
+    const gc = new GridCollisions();
 
     this.playerID = player;
     this.textID = text;
@@ -85,7 +89,6 @@ export class TutorialSystem extends System {
       },
     ]);
 
-    // do nothing
     let s: Entity;
     let p: Entity;
     let e: Entity;
@@ -97,6 +100,40 @@ export class TutorialSystem extends System {
       "Press ' ' (space) to spend one turn and not move.",
       (engine: Engine, player: Entity) => {
         if (engine.isKeyDown(Key.SPACE)) {
+          // create boundary rectangle so player cannot exit the screen
+          const MIN_X = 15;
+          const MAX_X = 35;
+          const MIN_Y = 3;
+          const MAX_Y = 15;
+
+          for (let x = MIN_X; x < MAX_X; ++x) {
+            const top = this.ecs.addEntity();
+            this.ecs.addComponent(top, new Position2d(x, MIN_Y));
+            this.ecs.addComponent(top, new Collider());
+            this.ecs.addComponent(top, new Render("X"));
+            gc.set(new Position2d(x, MIN_Y), top);
+
+            const bot = this.ecs.addEntity();
+            this.ecs.addComponent(bot, new Position2d(x, MAX_Y));
+            this.ecs.addComponent(bot, new Collider());
+            this.ecs.addComponent(bot, new Render("X"));
+            gc.set(new Position2d(x, MAX_Y), bot);
+          }
+
+          for (let y = MIN_Y; y <= MAX_Y; ++y) {
+            const left = this.ecs.addEntity();
+            this.ecs.addComponent(left, new Position2d(MIN_X, y));
+            this.ecs.addComponent(left, new Collider());
+            this.ecs.addComponent(left, new Render("X"));
+            gc.set(new Position2d(MIN_X, y), left);
+
+            const right = this.ecs.addEntity();
+            this.ecs.addComponent(right, new Position2d(MAX_X, y));
+            this.ecs.addComponent(right, new Collider());
+            this.ecs.addComponent(right, new Render("X"));
+            gc.set(new Position2d(MAX_X, y), right);
+          }
+
           // add switch and portal
           s = this.ecs.addEntity();
           p = this.ecs.addEntity();
@@ -110,11 +147,11 @@ export class TutorialSystem extends System {
           this.ecs.addComponent(p, new Render("o"));
           this.ecs.addComponent(p, new Portal());
 
-          const gc = new GridCollisions();
           this.ecs.setBB("grid collisions", gc);
 
           // add player movement system
           this.ecs.addSystem(5, new PlayerMovement());
+          this.ecs.addSystem(10, new PlayerCollision());
           this.ecs.addSystem(50, new EnemyAI());
           this.ecs.addSystem(80, new RenderGameInfo());
           this.ecs.addSystem(85, new RenderEnemyTerritory());
@@ -157,7 +194,7 @@ export class TutorialSystem extends System {
           playerComponent.stamina = MAX_STAMINA;
           positionPlayer.setX(25);
           positionPlayer.setY(5);
-          this.ecs.getComponents(this.textID).get(C.Text).text =
+          this.ecs.getComponents(this.textID).get(VisibleText).text =
             "Try to hit the '*' switch before you run out of stamina.";
         }
 
@@ -191,7 +228,7 @@ export class TutorialSystem extends System {
           this.ecs.setBB("game over", CONTINUE);
 
           // "helpful" hint for the player
-          this.ecs.getComponents(this.textID).get(C.Text).text =
+          this.ecs.getComponents(this.textID).get(VisibleText).text =
             "Try to avoid the enemy and not run out of stamina!";
         }
 
@@ -216,7 +253,7 @@ export class TutorialSystem extends System {
       if (this.index >= this.steps.length) {
         this.ecs.setBB("tutorial over", true);
       } else {
-        this.ecs.getComponents(this.textID).get(C.Text).text =
+        this.ecs.getComponents(this.textID).get(VisibleText).text =
           this.steps[this.index][0];
       }
     }

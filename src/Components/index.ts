@@ -7,7 +7,7 @@ import { Switch } from "./Switch";
 import { Enemy } from "./Enemy";
 import { Food } from "./Food";
 import { Territory } from "./Territory";
-import { Text } from "./Text";
+import { VisibleText } from "./Text";
 
 export const C = {
   Collider,
@@ -19,5 +19,5 @@ export const C = {
   Switch,
   Food,
   Territory,
-  Text,
+  VisibleText: Text,
 };

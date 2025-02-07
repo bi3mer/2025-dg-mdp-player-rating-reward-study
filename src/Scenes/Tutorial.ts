@@ -1,6 +1,7 @@
 import { Movable } from "../Components/Movable";
 import { Player } from "../Components/Player";
 import { Render } from "../Components/Render";
+import { VisibleText } from "../Components/VisibleText";
 import { RenderSystem } from "../Systems/RenderSystem";
 import { TutorialRenderSystem } from "../Systems/TutorialRenderSystem";
 import { TutorialSystem } from "../Systems/TutorialSystem";
@@ -27,7 +28,7 @@ export class Tutorial extends ECSScene {
 
     const instructions = this.addEntity();
     this.addComponent(instructions, new CommonComponents.Position2d(5, 20));
-    this.addComponent(instructions, new Text("Press 'A' to move left."));
+    this.addComponent(instructions, new VisibleText("Press 'A' to move left."));
 
     this.addSystem(0, new TutorialSystem(playerID, instructions));
     this.addSystem(90, new TutorialRenderSystem());
