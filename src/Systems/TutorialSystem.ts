@@ -15,6 +15,7 @@ import { RenderEnemyTerritory } from "./RenderEnemyTerritory";
 import { RenderGameInfo } from "./RenderGameInfo";
 import { VisibleText } from "../Components/VisibleText";
 import { PlayerCollision } from "./PlayerCollision";
+import { Cookie } from "../WorldEngine/src/Utility";
 
 export class TutorialSystem extends System {
   componentsRequired = new Set<Function>([]);
