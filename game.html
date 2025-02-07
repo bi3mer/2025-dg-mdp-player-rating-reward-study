@@ -1,53 +1,69 @@
 <!doctype html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport"
-      content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-  <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>CB: DungeonGrams-TS</title>
-</head>
-<body style="background-color:black;">
-  <br/>
-  <br/>
-  
-  <center>
-    <div id="game">
-      <canvas id="canvas"  width="1000" height="480" style="border:1px solid gray"></canvas>
-      <br/>
-      <br/>
-      <button id="done">
-          Go to Survey
-      </button>
-    </div>
-  </center>
-  <div id="survey" style="color: white; margin-left: 50px; display: none; font-size: 20px;">
-    <center>
-      <p>
-          Please fill out the following survey. Afterwards, your code will be available after submission.
-      </p>
-      <form id="questionnaire">
-          <!-- Survey questions placed here -->
-          <!-- <button type='submit' form='questionnaire'></button> -->
-      </form>
-      <p id='errorText' style="color: red">
-      </p>
-    </center>
-  </div>
- 
-  <div id="complete" style="display: none; color: white; font-size: 30px;">
-    <br/>
-    <center>
-        Thank you for participating.
-        <br/>
-        <br/>
-        Your code is: CODE_HERE
-    </center>
-  </div>
+    <head>
+        <meta charset="UTF-8" />
+        <meta
+            name="viewport"
+            content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"
+        />
+        <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+        <title>CB: DungeonGrams-TS</title>
+    </head>
+    <body style="background-color: black">
+        <br />
+        <br />
 
-  <script src="dist/bundle.js"></script>
-  <style>
-    th, td { padding: 0px; }
-  </style>
-</body>
+        <center>
+            <div id="game">
+                <canvas
+                    id="canvas"
+                    width="1000"
+                    height="480"
+                    style="border: 1px solid gray"
+                ></canvas>
+                <br />
+                <br />
+                <button id="done">Go to Survey</button>
+            </div>
+        </center>
+        <div
+            id="survey"
+            style="
+                color: white;
+                margin-left: 50px;
+                display: none;
+                font-size: 20px;
+            "
+        >
+            <center>
+                <p>
+                    Please fill out the following survey. Afterwards, your code
+                    will be available after submission.
+                </p>
+                <form id="questionnaire">
+                    <!-- Survey questions placed here -->
+                    <!-- <button type='submit' form='questionnaire'></button> -->
+                </form>
+                <p id="errorText" style="color: red"></p>
+            </center>
+        </div>
+
+        <div id="complete" style="display: none; color: white; font-size: 30px">
+            <br />
+            <center>
+                Thank you for participating.
+                <br />
+                <br />
+                Your code is: CODE_HERE
+            </center>
+        </div>
+
+        <script src="dist/index.js"></script>
+        <style>
+            th,
+            td {
+                padding: 0px;
+            }
+        </style>
+    </body>
 </html>

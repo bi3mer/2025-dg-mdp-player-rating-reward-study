@@ -1,7 +1,17 @@
 import { greedyPolicy, policyIteration, randomPolicy } from "./GDM-TS";
 import { Edge } from "./GDM-TS/src/Graph/edge";
 import { choice } from "./GDM-TS/src/rand";
-import { KEY_DEATH, KEY_START, NUM_ROWS, KEY_END, LD_RANDOM, LD_DIFFICULTY, LD_ENJOYMENT, LD_BOTH, LD_SWITCH } from "./constants";
+import {
+  KEY_DEATH,
+  KEY_START,
+  NUM_ROWS,
+  KEY_END,
+  LD_RANDOM,
+  LD_DIFFICULTY,
+  LD_ENJOYMENT,
+  LD_BOTH,
+  LD_SWITCH,
+} from "./constants";
 import { CustomNode } from "./customNode";
 import { MDP, idToLevel } from "./levels";
 import { CustomEdge } from "./customEdge";
@@ -20,11 +30,18 @@ export class LevelDirector {
   private type: string;
 
   constructor() {
-    // randomly assign the level director type
-    this.type = choice([LD_RANDOM, LD_DIFFICULTY, LD_ENJOYMENT, LD_BOTH]);
+    // assign the director
+    const urlParams = new URLSearchParams(window.location.search);
+    if (urlParams.has("default")) {
+      this.type = LD_BOTH;
+    } else {
+      this.type = choice([LD_RANDOM, LD_DIFFICULTY, LD_ENJOYMENT, LD_BOTH]);
+    }
+
+    console.log(`Director: ${this.type}`);
     Global.director = this.type;
 
-    // start with optimize for enjoyment 
+    // start with optimize for enjoyment
     if (this.type == LD_DIFFICULTY) {
       this.optimizeDifficulty = true;
     } else {
@@ -42,7 +59,7 @@ export class LevelDirector {
     console.log(this.levelsPlayed, this.type);
 
     if (this.levelsPlayed % LD_SWITCH == 0 && this.type == LD_BOTH) {
-      console.log('switch!');
+      console.log("switch!");
       // switch what we are optimizing for
       this.optimizeDifficulty = !this.optimizeDifficulty;
 
@@ -85,7 +102,17 @@ export class LevelDirector {
       if (pc === 1) {
         if (!MDP.hasEdge(KEY_START, id)) {
           console.log(`'adding edge: ${KEY_START} -> ${id}`);
-          MDP.addEdge(new CustomEdge(KEY_START, id, [[id, 1.0], [KEY_DEATH, 0.0]], []));
+          MDP.addEdge(
+            new CustomEdge(
+              KEY_START,
+              id,
+              [
+                [id, 1.0],
+                [KEY_DEATH, 0.0],
+              ],
+              [],
+            ),
+          );
         }
       }
 
@@ -121,26 +148,29 @@ export class LevelDirector {
           break;
         }
 
-        let hardestNeighbor = '';
+        let hardestNeighbor = "";
         let maxSuccess = 10000; // TODO: rename
         let maxDifficulty = 0;
         for (let jj = 0; jj < neighborsCount; ++jj) {
           const nodeName = neighbors[jj];
-          if (nodeName === '0_0_0') {
+          if (nodeName === "0_0_0") {
             continue; // skip tutorial / basic level
           }
 
           const n = MDP.getNode(nodeName) as CustomNode;
           const success = n.sumPercentCompleted / n.visitedCount;
 
-          if (success < maxSuccess || (success === maxSuccess && maxDifficulty < n.difficulty)) {
+          if (
+            success < maxSuccess ||
+            (success === maxSuccess && maxDifficulty < n.difficulty)
+          ) {
             hardestNeighbor = nodeName;
             maxSuccess = success;
             maxDifficulty = n.difficulty;
           }
         }
 
-        console.log('removing edge:', hardestNeighbor, maxSuccess);
+        console.log("removing edge:", hardestNeighbor, maxSuccess);
         MDP.removeEdge(KEY_START, hardestNeighbor);
       }
     }
@@ -158,7 +188,7 @@ export class LevelDirector {
     }
     this.columnsPerLevel = [];
 
-    // If player won, don't start from a level that they have definitely 
+    // If player won, don't start from a level that they have definitely
     // already played
     if (this.playerWonLastRound) {
       this.keys = [choice(pi[KEY_START])];
@@ -176,22 +206,23 @@ export class LevelDirector {
       }
     }
 
-    // remove START id from keys since we won't use it after this 
+    // remove START id from keys since we won't use it after this
     this.keys.splice(0, 1);
     console.log(this.keys);
 
-    // Update if the player is on the last level 
+    // Update if the player is on the last level
     this.playerIsOnLastLevel = this.keys.includes(KEY_END);
 
     // Populate the level
     let r: number;
-    const lvl: string[] = Array(NUM_ROWS).fill("");
+    const lvl: string[] = new Array(NUM_ROWS).fill("");
     const length = this.keys.length;
 
-    for (let i = 0; i < length; ++i) { // skip the start key
+    for (let i = 0; i < length; ++i) {
+      // skip the start key
       const stateLVL = idToLevel[this.keys[i]].slice(); // copy by value
 
-      // add link if necessary. Note, we add it to state level so columnsPerLevel 
+      // add link if necessary. Note, we add it to state level so columnsPerLevel
       // is correct
       if (i > 0) {
         const edge = MDP.getEdge(this.keys[i - 1], this.keys[i]) as CustomEdge;
@@ -199,7 +230,7 @@ export class LevelDirector {
         const linkLength = link.length;
         if (linkLength > 0) {
           for (let jj = 0; jj < linkLength; ++jj) {
-            const column = link[jj]
+            const column = link[jj];
             for (r = 0; r < NUM_ROWS; ++r) {
               stateLVL[r] = column[r] + stateLVL[r];
             }

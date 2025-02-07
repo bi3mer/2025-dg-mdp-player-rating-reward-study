@@ -18,10 +18,11 @@ export class StartMenu extends Scene {
   public onExit(engine: Engine): void { }
 
   public update(engine: Engine): number {
-    const currentTime = performance.now();
-    if (currentTime - START_TIME > MAX_TIME) {
-      return this.surveyIndex;
-    }
+    // Time limit
+    // const currentTime = performance.now();
+    // if (currentTime - START_TIME > MAX_TIME) {
+    //   return this.surveyIndex;
+    // }
 
     if (engine.keyDown.has(Key.ENTER)) {
       engine.keyDown.clear();

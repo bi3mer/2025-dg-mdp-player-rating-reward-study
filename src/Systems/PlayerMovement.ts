@@ -1,21 +1,23 @@
-import { Engine, System, Entity, Key, CommonComponents } from "../WorldEngine";
-import { C } from "../Components";
+import { Player } from "../Components/Player";
+import { Render } from "../Components/Render";
 import { OFFSET_COL, PLAYER_LOST } from "../constants";
 import { Global } from "../Global";
+import { Engine, Entity, Key, System } from "../WorldEngine/index";
+import { Position2d } from "../WorldEngine/src/Components/Position2d";
 
 export class PlayerMovement extends System {
-  componentsRequired = new Set<Function>([CommonComponents.Position2d, C.Render, C.Player]);
+  componentsRequired = new Set<Function>([Position2d, Render, Player]);
 
   private updateTimeStep(): void {
-    const timeStep: number = this.ecs.getBB('time step');
-    this.ecs.setBB('time step', timeStep + 1);
+    const timeStep: number = this.ecs.getBB("time step");
+    this.ecs.setBB("time step", timeStep + 1);
   }
 
   update(engine: Engine, entities: Set<Entity>): void {
     const playerID = entities.values().next().value as Entity;
     const components = this.ecs.getComponents(playerID);
-    const player = components.get(C.Player);
-    let pos = components.get(CommonComponents.Position2d);
+    const player = components.get(Player);
+    let pos = components.get(Position2d);
     const x = pos.getX();
     const y = pos.getY();
 
@@ -56,15 +58,18 @@ export class PlayerMovement extends System {
           playerMoved = true;
 
           if (player.stamina <= 0) {
-            Global.diedFrom = 'Stamina';
-            this.ecs.setBB('game over', PLAYER_LOST);
+            Global.diedFrom = "Stamina";
+            this.ecs.setBB("game over", PLAYER_LOST);
           }
           break;
         // nothing to do in the default case
       }
 
       if (playerMoved) {
-        player.furthestColumn = Math.max(player.furthestColumn, pos.getX() - OFFSET_COL);
+        player.furthestColumn = Math.max(
+          player.furthestColumn,
+          pos.getX() - OFFSET_COL,
+        );
         break;
       }
     }
