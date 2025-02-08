@@ -140,7 +140,8 @@ export class LevelDirector {
     // Note that instead of reward or difficulty, we are concerned with maintaining
     // the structure of this smaller graph, so we use the depth of the node.
     if (!playerWon) {
-      console.log("depth:", MDP.getNode("3_0_0").depth);
+      ++this.lossesInARow;
+
       for (let i = 0; i < this.lossesInARow; ++i) {
         const neighbors = MDP.getNode(KEY_START).neighbors;
         const neighborsCount = neighbors.length;
@@ -150,7 +151,7 @@ export class LevelDirector {
         }
 
         let hardestNeighbor = "";
-        let maxSuccess = 10000; // TODO: rename
+        let minDepth = 10000; // TODO: rename
         let maxDifficulty = 0;
         for (let jj = 0; jj < neighborsCount; ++jj) {
           const nodeName = neighbors[jj];
@@ -159,19 +160,19 @@ export class LevelDirector {
           }
 
           const n = MDP.getNode(nodeName) as CustomNode;
-          const success = n.sumPercentCompleted / n.visitedCount;
+          const d = n.depth;
 
           if (
-            success < maxSuccess ||
-            (success === maxSuccess && maxDifficulty < n.difficulty)
+            d < minDepth ||
+            (d === minDepth && maxDifficulty < n.difficulty)
           ) {
             hardestNeighbor = nodeName;
-            maxSuccess = success;
+            minDepth = d;
             maxDifficulty = n.difficulty;
           }
         }
 
-        console.log("removing edge:", hardestNeighbor, maxSuccess);
+        console.log("removing edge:", hardestNeighbor, minDepth, maxDifficulty);
         MDP.removeEdge(KEY_START, hardestNeighbor);
       }
     }
