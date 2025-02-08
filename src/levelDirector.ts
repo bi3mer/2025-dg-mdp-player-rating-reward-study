@@ -140,6 +140,7 @@ export class LevelDirector {
     // Note that instead of reward or difficulty, we are concerned with maintaining
     // the structure of this smaller graph, so we use the depth of the node.
     if (!playerWon) {
+      console.log("depth:", MDP.getNode("3_0_0").depth);
       for (let i = 0; i < this.lossesInARow; ++i) {
         const neighbors = MDP.getNode(KEY_START).neighbors;
         const neighborsCount = neighbors.length;

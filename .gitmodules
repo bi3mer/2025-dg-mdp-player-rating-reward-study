@@ -4,3 +4,6 @@
 [submodule "src/WorldEngine"]
 	path = src/WorldEngine
 	url = https://github.com/bi3mer/WorldEngine.git
+[submodule "scripts/GDM"]
+	path = scripts/GDM
+	url = https://github.com/bi3mer/GDM.git

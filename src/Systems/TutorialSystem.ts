@@ -5,17 +5,17 @@ import { Player } from "../Components/Player";
 import { Portal } from "../Components/Portal";
 import { Render } from "../Components/Render";
 import { Territory } from "../Components/Territory";
+import { VisibleText } from "../Components/VisibleText";
 import { CONTINUE, MAX_STAMINA, PLAYER_LOST } from "../constants";
 import { Engine, Entity, Key, System } from "../WorldEngine/index";
 import { Position2d } from "../WorldEngine/src/Components/Position2d";
+import { Cookie } from "../WorldEngine/src/Utility";
 import { GridCollisions } from "../WorldEngine/src/Utility/GridCollisions";
 import { EnemyAI } from "./EnemyAI";
+import { PlayerCollision } from "./PlayerCollision";
 import { PlayerMovement } from "./PlayerMovement";
 import { RenderEnemyTerritory } from "./RenderEnemyTerritory";
 import { RenderGameInfo } from "./RenderGameInfo";
-import { VisibleText } from "../Components/VisibleText";
-import { PlayerCollision } from "./PlayerCollision";
-import { Cookie } from "../WorldEngine/src/Utility";
 
 export class TutorialSystem extends System {
   componentsRequired = new Set<Function>([]);

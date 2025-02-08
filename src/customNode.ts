@@ -8,7 +8,15 @@ export class CustomNode extends Node {
   public difficulty: number;
   public enjoyability: number;
 
-  constructor(name: string, difficulty: number, enjoyability: number, utility: number, isTerminal: boolean, neighbors: string[], depth: number) {
+  constructor(
+    name: string,
+    difficulty: number,
+    enjoyability: number,
+    utility: number,
+    isTerminal: boolean,
+    neighbors: string[],
+    depth: number,
+  ) {
     super(name, difficulty, utility, isTerminal, neighbors);
 
     this.difficulty = difficulty;
