@@ -1,3 +1,4 @@
+from re import A
 from typing import List, cast
 import json
 import os
@@ -5,7 +6,7 @@ import os
 from GDM.GDM.Graph import Graph, Node, Edge
 from GDM.GDM.utility import bfs
 
-############# TYpes for the graph #############
+############# Types for the graph #############
 class N(Node):
     def __init__(self, name: str, diff: float, enj: float, is_terminal: bool):
         super().__init__(name, 0, 0, False, set())
@@ -83,16 +84,50 @@ for src in links:
         ):
             G.add_edge(E(_src, tgt, info["tree search"]["link"]) )
 
+############# Find a valid "end" node #############
+while True:
+    max_bc = 0
+    max_bc_node = None
+    nodes_to_remove = []
+
+    for node_name in G.nodes:
+        n = cast(N, G.nodes[node_name])
+        bc = n.d + n.e
+
+        if bfs(G, "0_0_0", node_name) != None:
+            if bc < max_bc:
+                max_bc = bc
+                max_bc_node = node_name
+        else:
+            nodes_to_remove.append(node_name)
+
+    if len(nodes_to_remove) > 0:
+        for n in nodes_to_remove:
+            print('removing node:', n)
+            G.remove_node(n)
+
+        continue
+
+    end_node = N("end", 0, 0, True)
+    end_node.reward = 10
+    G.add_node(end_node)
+
+    G.add_edge(E(cast(str, max_bc_node), "end", []))
+    print("Edge to end node,", max_bc_node)
+    exit(1)
+    break
+
+
 ############# Run BFS to get the depth each node #############
 for node_name in G.nodes:
-    to_end_error, to_end_path = bfs(G, node_name, 'end')
-    if to_end_error:
+    path = bfs(G, node_name, 'end')
+    if path == None:
         print(f'No path to end node found for {node_name}')
         break
         continue
 
-    to_start_error, to_start_path = bfs(G, '0_0_0', node_name)
-    if to_start_error:
+    path = bfs(G, '0_0_0', node_name)
+    if path == None:
         print(f'No path found from "0_0_0" node to {node_name}')
         break
         continue
