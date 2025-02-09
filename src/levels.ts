@@ -10,7 +10,7 @@ export const MDP = new Graph();
 MDP.addNode(new CustomNode(KEY_START, 0, 0, 0, false, [], -1));
 MDP.addNode(new CustomNode(KEY_DEATH, -5, -5, 0, true, [], -1));
 
-MDP.addNode(new CustomNode('0_0_0', -0.5192118226600986, -0.1871921182266011, 0, false, [], -1));
+MDP.addNode(new CustomNode('0_0_0', -0.5192118226600986, -0.1871921182266011, 0, false, [], 0));
 MDP.addNode(new CustomNode('0_1_0', -0.5238095238095237, -0.11904761904761896, 0, false, [], 1));
 MDP.addNode(new CustomNode('0_11_0', -0.6984126984126984, -0.04761904761904756, 0, false, [], 27));
 MDP.addNode(new CustomNode('0_12_0', -0.5306122448979592, -0.12244897959183665, 0, false, [], 28));
@@ -21,7 +21,6 @@ MDP.addNode(new CustomNode('0_3_0', -0.4897959183673469, -0.26530612244897955, 0
 MDP.addNode(new CustomNode('0_4_0', -0.4285714285714286, -0.18367346938775508, 0, false, [], 4));
 MDP.addNode(new CustomNode('0_5_0', -0.1428571428571429, -0.2142857142857143, 0, false, [], 5));
 MDP.addNode(new CustomNode('0_6_0', -0.4693877551020408, -0.18367346938775508, 0, false, [], 6));
-MDP.addNode(new CustomNode('0_7_0', -0.4571428571428572, -0.17142857142857149, 0, false, [], -1));
 MDP.addNode(new CustomNode('10_0_0', -0.3214285714285714, -0.1071428571428571, 0, false, [], 10));
 MDP.addNode(new CustomNode('10_1_0', -0.4571428571428572, -0.22857142857142854, 0, false, [], 11));
 MDP.addNode(new CustomNode('10_2_0', -0.1428571428571429, 0.0, 0, false, [], 12));
@@ -64,7 +63,6 @@ MDP.addNode(new CustomNode('16_2_0', -0.2142857142857143, -0.25, 0, false, [], 1
 MDP.addNode(new CustomNode('16_3_0', -0.2857142857142857, -0.3571428571428571, 0, false, [], 19));
 MDP.addNode(new CustomNode('16_4_0', -0.2142857142857143, -0.2142857142857143, 0, false, [], 20));
 MDP.addNode(new CustomNode('17_2_0', -0.22857142857142854, -0.2857142857142857, 0, false, [], 19));
-MDP.addNode(new CustomNode('17_3_0', -0.4642857142857143, -0.2142857142857143, 0, false, [], -1));
 MDP.addNode(new CustomNode('17_4_0', -0.5238095238095237, -0.2063492063492064, 0, false, [], 19));
 MDP.addNode(new CustomNode('17_5_0', -0.1428571428571429, -0.5, 0, false, [], 18));
 MDP.addNode(new CustomNode('18_2_0', -0.16326530612244905, -0.16326530612244905, 0, false, [], 20));
@@ -94,7 +92,6 @@ MDP.addNode(new CustomNode('2_16_0', -0.5, -0.3571428571428571, 0, false, [], 29
 MDP.addNode(new CustomNode('2_2_0', -0.5428571428571428, -0.2857142857142857, 0, false, [], 4));
 MDP.addNode(new CustomNode('2_3_0', -0.5142857142857142, -0.2571428571428571, 0, false, [], 5));
 MDP.addNode(new CustomNode('2_4_0', -0.7142857142857143, -0.38095238095238104, 0, false, [], 6));
-MDP.addNode(new CustomNode('2_9_0', -0.30952380952380953, -0.16666666666666674, 0, false, [], -1));
 MDP.addNode(new CustomNode('3_0_0', -0.40476190476190477, -0.33333333333333326, 0, false, [], 3));
 MDP.addNode(new CustomNode('3_1_0', -0.3571428571428571, -0.2857142857142857, 0, false, [], 4));
 MDP.addNode(new CustomNode('3_10_0', 0.0, -0.8571428571428572, 0, false, [], 23));
@@ -107,8 +104,6 @@ MDP.addNode(new CustomNode('3_16_0', -0.16326530612244905, -0.34693877551020413,
 MDP.addNode(new CustomNode('3_2_0', -0.6938775510204082, -0.12244897959183665, 0, false, [], 5));
 MDP.addNode(new CustomNode('3_3_0', -0.6734693877551021, -0.16326530612244905, 0, false, [], 8));
 MDP.addNode(new CustomNode('3_4_0', -0.4285714285714286, -0.05714285714285716, 0, false, [], 9));
-MDP.addNode(new CustomNode('3_8_0', -0.34693877551020413, -0.36734693877551017, 0, false, [], -1));
-MDP.addNode(new CustomNode('3_9_0', -0.44897959183673464, -0.22448979591836726, 0, false, [], -1));
 MDP.addNode(new CustomNode('4_0_0', -0.17142857142857149, -0.22857142857142854, 0, false, [], 4));
 MDP.addNode(new CustomNode('4_1_0', -0.3142857142857143, -0.29999999999999993, 0, false, [], 5));
 MDP.addNode(new CustomNode('4_10_0', -0.3571428571428571, -0.1607142857142857, 0, false, [], 22));
@@ -121,7 +116,6 @@ MDP.addNode(new CustomNode('4_16_0', -0.2857142857142857, -0.2142857142857143, 0
 MDP.addNode(new CustomNode('4_2_0', -0.2857142857142857, -0.1785714285714286, 0, false, [], 6));
 MDP.addNode(new CustomNode('4_3_0', -0.3571428571428571, -0.1428571428571429, 0, false, [], 7));
 MDP.addNode(new CustomNode('4_4_0', -0.47619047619047616, -0.19047619047619047, 0, false, [], 8));
-MDP.addNode(new CustomNode('4_5_0', -0.5142857142857142, -0.2571428571428571, 0, false, [], -1));
 MDP.addNode(new CustomNode('4_8_0', -0.4571428571428572, -0.1428571428571429, 0, false, [], 20));
 MDP.addNode(new CustomNode('4_9_0', -0.4285714285714286, -0.11428571428571421, 0, false, [], 21));
 MDP.addNode(new CustomNode('5_0_0', 0.0, -0.33333333333333326, 0, false, [], 5));
@@ -136,7 +130,6 @@ MDP.addNode(new CustomNode('5_2_0', -0.75, -0.3214285714285714, 0, false, [], 7)
 MDP.addNode(new CustomNode('5_3_0', -0.38095238095238104, -0.33333333333333326, 0, false, [], 8));
 MDP.addNode(new CustomNode('5_4_0', -0.3877551020408163, -0.40816326530612235, 0, false, [], 9));
 MDP.addNode(new CustomNode('5_5_0', -0.4897959183673469, -0.12244897959183665, 0, false, [], 14));
-MDP.addNode(new CustomNode('5_6_0', -0.2857142857142857, -0.1428571428571429, 0, false, [], -1));
 MDP.addNode(new CustomNode('5_7_0', -0.5079365079365079, -0.2222222222222222, 0, false, [], 18));
 MDP.addNode(new CustomNode('5_8_0', -0.3214285714285714, -0.3571428571428571, 0, false, [], 19));
 MDP.addNode(new CustomNode('5_9_0', -0.3214285714285714, -0.3571428571428571, 0, false, [], 20));
@@ -151,7 +144,6 @@ MDP.addNode(new CustomNode('6_2_0', -0.3928571428571429, -0.3928571428571429, 0,
 MDP.addNode(new CustomNode('6_3_0', -0.47619047619047616, -0.19047619047619047, 0, false, [], 9));
 MDP.addNode(new CustomNode('6_4_0', -0.2857142857142857, -0.2857142857142857, 0, false, [], 12));
 MDP.addNode(new CustomNode('6_5_0', -0.6428571428571428, -0.1428571428571429, 0, false, [], 13));
-MDP.addNode(new CustomNode('6_6_0', -0.8571428571428572, -0.1428571428571429, 0, false, [], -1));
 MDP.addNode(new CustomNode('6_7_0', -0.4, -0.1428571428571429, 0, false, [], 17));
 MDP.addNode(new CustomNode('6_8_0', -0.5476190476190477, -0.40476190476190477, 0, false, [], 18));
 MDP.addNode(new CustomNode('6_9_0', -0.4693877551020408, -0.12244897959183665, 0, false, [], 19));
@@ -162,7 +154,6 @@ MDP.addNode(new CustomNode('7_2_0', -0.38095238095238104, -0.2857142857142857, 0
 MDP.addNode(new CustomNode('7_3_0', -0.6122448979591837, -0.26530612244897955, 0, false, [], 10));
 MDP.addNode(new CustomNode('7_4_0', -0.4571428571428572, -0.2857142857142857, 0, false, [], 11));
 MDP.addNode(new CustomNode('7_5_0', -0.4285714285714286, -0.11428571428571421, 0, false, [], 12));
-MDP.addNode(new CustomNode('7_6_0', -0.20000000000000007, -0.20000000000000007, 0, false, [], -1));
 MDP.addNode(new CustomNode('7_7_0', -0.4285714285714286, -0.1785714285714286, 0, false, [], 16));
 MDP.addNode(new CustomNode('7_8_0', -0.2857142857142857, -0.2142857142857143, 0, false, [], 17));
 MDP.addNode(new CustomNode('7_9_0', -0.38095238095238104, -0.38095238095238104, 0, false, [], 18));
@@ -184,6 +175,7 @@ MDP.addNode(new CustomNode('9_4_0', -0.4285714285714286, -0.1428571428571429, 0,
 MDP.addNode(new CustomNode('9_5_0', -0.45238095238095233, -0.1428571428571429, 0, false, [], 14));
 MDP.addNode(new CustomNode('9_6_0', -0.33333333333333326, -0.23809523809523814, 0, false, [], 15));
 MDP.addNode(new CustomNode('9_7_0', -0.38095238095238104, -0.33333333333333326, 0, false, [], 16));
+MDP.addNode(new CustomNode('end', 0, 0, 0, true, [], 20));
 
 // ========= Edges =========
 MDP.addEdge(new CustomEdge(KEY_START, "0_0_0", [["0_0_0", 0.99], [KEY_DEATH, 0.01]], []));
@@ -303,7 +295,6 @@ MDP.addEdge(new CustomEdge("13_2_0", "12_2_0", [["12_2_0", 0.99], [KEY_DEATH, 0.
 MDP.addEdge(new CustomEdge("0_2_0", "0_3_0", [["0_3_0", 0.99], [KEY_DEATH, 0.01]], []));
 MDP.addEdge(new CustomEdge("0_2_0", "0_1_0", [["0_1_0", 0.99], [KEY_DEATH, 0.01]], []));
 MDP.addEdge(new CustomEdge("0_2_0", "1_2_0", [["1_2_0", 0.99], [KEY_DEATH, 0.01]], []));
-MDP.addEdge(new CustomEdge("4_5_0", "4_4_0", [["4_4_0", 0.99], [KEY_DEATH, 0.01]], ['-----&-----', '---------&-', '---------&-']));
 MDP.addEdge(new CustomEdge("4_1_0", "4_2_0", [["4_2_0", 0.99], [KEY_DEATH, 0.01]], ['-----&-----', '---------&-']));
 MDP.addEdge(new CustomEdge("4_1_0", "4_0_0", [["4_0_0", 0.99], [KEY_DEATH, 0.01]], ['-&---------']));
 MDP.addEdge(new CustomEdge("4_1_0", "5_1_0", [["5_1_0", 0.99], [KEY_DEATH, 0.01]], ['-&---------']));
@@ -390,8 +381,6 @@ MDP.addEdge(new CustomEdge("0_6_0", "0_5_0", [["0_5_0", 0.99], [KEY_DEATH, 0.01]
 MDP.addEdge(new CustomEdge("1_3_0", "1_2_0", [["1_2_0", 0.99], [KEY_DEATH, 0.01]], []));
 MDP.addEdge(new CustomEdge("1_3_0", "2_3_0", [["2_3_0", 0.99], [KEY_DEATH, 0.01]], []));
 MDP.addEdge(new CustomEdge("1_3_0", "0_3_0", [["0_3_0", 0.99], [KEY_DEATH, 0.01]], []));
-MDP.addEdge(new CustomEdge("6_6_0", "6_7_0", [["6_7_0", 0.99], [KEY_DEATH, 0.01]], ['-----&-----']));
-MDP.addEdge(new CustomEdge("6_6_0", "6_5_0", [["6_5_0", 0.99], [KEY_DEATH, 0.01]], ['-----&-----', '---------&-']));
 MDP.addEdge(new CustomEdge("5_2_0", "5_1_0", [["5_1_0", 0.99], [KEY_DEATH, 0.01]], ['-&---------']));
 MDP.addEdge(new CustomEdge("5_2_0", "6_2_0", [["6_2_0", 0.99], [KEY_DEATH, 0.01]], ['-&---------']));
 MDP.addEdge(new CustomEdge("5_2_0", "4_2_0", [["4_2_0", 0.99], [KEY_DEATH, 0.01]], ['---------&-', '---------&-']));
@@ -420,7 +409,6 @@ MDP.addEdge(new CustomEdge("4_2_0", "4_3_0", [["4_3_0", 0.99], [KEY_DEATH, 0.01]
 MDP.addEdge(new CustomEdge("4_2_0", "4_1_0", [["4_1_0", 0.99], [KEY_DEATH, 0.01]], ['-&---------']));
 MDP.addEdge(new CustomEdge("4_2_0", "5_2_0", [["5_2_0", 0.99], [KEY_DEATH, 0.01]], ['---------&-', '---------&-']));
 MDP.addEdge(new CustomEdge("4_2_0", "3_2_0", [["3_2_0", 0.99], [KEY_DEATH, 0.01]], ['-&---------']));
-MDP.addEdge(new CustomEdge("2_9_0", "2_10_0", [["2_10_0", 0.99], [KEY_DEATH, 0.01]], ['-----&-----']));
 MDP.addEdge(new CustomEdge("5_7_0", "5_8_0", [["5_8_0", 0.99], [KEY_DEATH, 0.01]], ['-&---------']));
 MDP.addEdge(new CustomEdge("5_7_0", "6_7_0", [["6_7_0", 0.99], [KEY_DEATH, 0.01]], ['-----&-----']));
 MDP.addEdge(new CustomEdge("5_0_0", "5_1_0", [["5_1_0", 0.99], [KEY_DEATH, 0.01]], ['-&---------']));
@@ -434,7 +422,6 @@ MDP.addEdge(new CustomEdge("8_1_0", "8_2_0", [["8_2_0", 0.99], [KEY_DEATH, 0.01]
 MDP.addEdge(new CustomEdge("8_1_0", "8_0_0", [["8_0_0", 0.99], [KEY_DEATH, 0.01]], ['-&---------']));
 MDP.addEdge(new CustomEdge("8_1_0", "9_1_0", [["9_1_0", 0.99], [KEY_DEATH, 0.01]], ['-&---------']));
 MDP.addEdge(new CustomEdge("8_1_0", "7_1_0", [["7_1_0", 0.99], [KEY_DEATH, 0.01]], ['-&---------']));
-MDP.addEdge(new CustomEdge("0_7_0", "0_6_0", [["0_6_0", 0.99], [KEY_DEATH, 0.01]], ['-----&-----']));
 MDP.addEdge(new CustomEdge("3_10_0", "3_11_0", [["3_11_0", 0.99], [KEY_DEATH, 0.01]], ['---------&-']));
 MDP.addEdge(new CustomEdge("3_10_0", "4_10_0", [["4_10_0", 0.99], [KEY_DEATH, 0.01]], ['---------&-']));
 MDP.addEdge(new CustomEdge("3_10_0", "2_10_0", [["2_10_0", 0.99], [KEY_DEATH, 0.01]], ['-----&-----']));
@@ -449,13 +436,9 @@ MDP.addEdge(new CustomEdge("2_2_0", "2_3_0", [["2_3_0", 0.99], [KEY_DEATH, 0.01]
 MDP.addEdge(new CustomEdge("2_2_0", "2_1_0", [["2_1_0", 0.99], [KEY_DEATH, 0.01]], []));
 MDP.addEdge(new CustomEdge("2_2_0", "3_2_0", [["3_2_0", 0.99], [KEY_DEATH, 0.01]], []));
 MDP.addEdge(new CustomEdge("2_2_0", "1_2_0", [["1_2_0", 0.99], [KEY_DEATH, 0.01]], []));
-MDP.addEdge(new CustomEdge("3_9_0", "3_10_0", [["3_10_0", 0.99], [KEY_DEATH, 0.01]], ['-----&-----', '---------&-']));
-MDP.addEdge(new CustomEdge("3_9_0", "4_9_0", [["4_9_0", 0.99], [KEY_DEATH, 0.01]], ['-----&-----', '---------&-']));
 MDP.addEdge(new CustomEdge("6_0_0", "6_1_0", [["6_1_0", 0.99], [KEY_DEATH, 0.01]], ['-&---------']));
 MDP.addEdge(new CustomEdge("6_0_0", "7_0_0", [["7_0_0", 0.99], [KEY_DEATH, 0.01]], ['-&---------']));
 MDP.addEdge(new CustomEdge("6_0_0", "5_0_0", [["5_0_0", 0.99], [KEY_DEATH, 0.01]], ['-&---------']));
-MDP.addEdge(new CustomEdge("5_6_0", "5_7_0", [["5_7_0", 0.99], [KEY_DEATH, 0.01]], ['-----&-----']));
-MDP.addEdge(new CustomEdge("5_6_0", "5_5_0", [["5_5_0", 0.99], [KEY_DEATH, 0.01]], ['-----&-----']));
 MDP.addEdge(new CustomEdge("15_3_0", "15_4_0", [["15_4_0", 0.99], [KEY_DEATH, 0.01]], ['-&---------']));
 MDP.addEdge(new CustomEdge("15_3_0", "15_2_0", [["15_2_0", 0.99], [KEY_DEATH, 0.01]], ['-----&-----', '-&---------', '-&---------']));
 MDP.addEdge(new CustomEdge("15_3_0", "16_3_0", [["16_3_0", 0.99], [KEY_DEATH, 0.01]], ['-&---------']));
@@ -497,10 +480,6 @@ MDP.addEdge(new CustomEdge("7_8_0", "7_9_0", [["7_9_0", 0.99], [KEY_DEATH, 0.01]
 MDP.addEdge(new CustomEdge("7_8_0", "7_7_0", [["7_7_0", 0.99], [KEY_DEATH, 0.01]], ['-----&-----']));
 MDP.addEdge(new CustomEdge("7_8_0", "8_8_0", [["8_8_0", 0.99], [KEY_DEATH, 0.01]], ['-----&-----']));
 MDP.addEdge(new CustomEdge("7_8_0", "6_8_0", [["6_8_0", 0.99], [KEY_DEATH, 0.01]], ['-----&-----']));
-MDP.addEdge(new CustomEdge("3_8_0", "4_8_0", [["4_8_0", 0.99], [KEY_DEATH, 0.01]], ['-----&-----', '---------&-']));
-MDP.addEdge(new CustomEdge("7_6_0", "7_7_0", [["7_7_0", 0.99], [KEY_DEATH, 0.01]], ['-----&-----', '---------&-']));
-MDP.addEdge(new CustomEdge("7_6_0", "7_5_0", [["7_5_0", 0.99], [KEY_DEATH, 0.01]], ['---------&-', '---------&-']));
-MDP.addEdge(new CustomEdge("7_6_0", "8_6_0", [["8_6_0", 0.99], [KEY_DEATH, 0.01]], ['-----&-----', '---------&-']));
 MDP.addEdge(new CustomEdge("1_12_0", "1_13_0", [["1_13_0", 0.99], [KEY_DEATH, 0.01]], []));
 MDP.addEdge(new CustomEdge("1_12_0", "1_11_0", [["1_11_0", 0.99], [KEY_DEATH, 0.01]], ['-----&-----']));
 MDP.addEdge(new CustomEdge("1_12_0", "2_12_0", [["2_12_0", 0.99], [KEY_DEATH, 0.01]], ['---------&-']));
@@ -615,10 +594,6 @@ MDP.addEdge(new CustomEdge("4_13_0", "4_14_0", [["4_14_0", 0.99], [KEY_DEATH, 0.
 MDP.addEdge(new CustomEdge("4_13_0", "4_12_0", [["4_12_0", 0.99], [KEY_DEATH, 0.01]], ['---------&-']));
 MDP.addEdge(new CustomEdge("4_13_0", "5_13_0", [["5_13_0", 0.99], [KEY_DEATH, 0.01]], ['-----&-----']));
 MDP.addEdge(new CustomEdge("4_13_0", "3_13_0", [["3_13_0", 0.99], [KEY_DEATH, 0.01]], ['-----&-----']));
-MDP.addEdge(new CustomEdge("17_3_0", "17_4_0", [["17_4_0", 0.99], [KEY_DEATH, 0.01]], ['-----&-----', '-----&-----']));
-MDP.addEdge(new CustomEdge("17_3_0", "17_2_0", [["17_2_0", 0.99], [KEY_DEATH, 0.01]], ['-&---------']));
-MDP.addEdge(new CustomEdge("17_3_0", "18_3_0", [["18_3_0", 0.99], [KEY_DEATH, 0.01]], ['-&---------', '-----&-----']));
-MDP.addEdge(new CustomEdge("17_3_0", "16_3_0", [["16_3_0", 0.99], [KEY_DEATH, 0.01]], ['-----&-----', '-----&-----']));
 MDP.addEdge(new CustomEdge("3_14_0", "3_15_0", [["3_15_0", 0.99], [KEY_DEATH, 0.01]], ['-----&-----']));
 MDP.addEdge(new CustomEdge("3_14_0", "3_13_0", [["3_13_0", 0.99], [KEY_DEATH, 0.01]], ['-----&-----']));
 MDP.addEdge(new CustomEdge("3_14_0", "4_14_0", [["4_14_0", 0.99], [KEY_DEATH, 0.01]], ['-----&-----']));
@@ -742,6 +717,7 @@ MDP.addEdge(new CustomEdge("6_12_0", "6_14_0", [["6_14_0", 0.99], [KEY_DEATH, 0.
 MDP.addEdge(new CustomEdge("6_12_0", "6_11_0", [["6_11_0", 0.99], [KEY_DEATH, 0.01]], ['-----&-----']));
 MDP.addEdge(new CustomEdge("6_12_0", "5_12_0", [["5_12_0", 0.99], [KEY_DEATH, 0.01]], []));
 MDP.addEdge(new CustomEdge("1_17_0", "1_16_0", [["1_16_0", 0.99], [KEY_DEATH, 0.01]], ['-----&-----']));
+MDP.addEdge(new CustomEdge("7_10_0", "end", [["end", 0.99], [KEY_DEATH, 0.01]], []));
 
 // ========= Level Segments =========
 export const idToLevel:{ [key: string]: string[] } = {
