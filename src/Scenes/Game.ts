@@ -2,8 +2,13 @@ import { C } from "../Components";
 import { S } from "../Systems";
 import { idToLevel } from "../levels";
 
-
-import { Engine, ECSScene, Key, CommonComponents, Utility } from "../WorldEngine";
+import {
+  Engine,
+  ECSScene,
+  Key,
+  CommonComponents,
+  Utility,
+} from "../WorldEngine";
 import { Collider } from "../Components/Collider";
 import { MAX_STAMINA, NUM_ROWS } from "../constants";
 import { LevelDirector } from "../levelDirector";
@@ -24,8 +29,8 @@ export class Game extends ECSScene {
     super();
 
     this.director = new LevelDirector();
-    this.setBB('game over', 0);
-    this.setBB('restart', false)
+    this.setBB("game over", 0);
+    this.setBB("restart", false);
   }
 
   public onEnter(engine: Engine): void {
@@ -49,9 +54,9 @@ export class Game extends ECSScene {
       // add start values to both ends of the row
       let row = [...`--${lvl[y]}--`];
       if (y == 0) {
-        row[0] = '@';
+        row[0] = "@";
       } else if (y == NUM_ROWS - 1) {
-        row[modColumns - 1] = 'O';
+        row[modColumns - 1] = "O";
       }
 
       /// place into map
@@ -67,7 +72,7 @@ export class Game extends ECSScene {
         yMin = Math.min(yMin, yPos);
         yMax = Math.max(yMax, yPos);
 
-        if (char == '-') {
+        if (char == "-") {
           continue;
         }
 
@@ -76,25 +81,31 @@ export class Game extends ECSScene {
         this.addComponent(id, pos);
         gc.set(pos, id);
 
-        if (char == 'O') {
+        if (char == "O") {
           this.addComponent(id, new C.Portal());
-          this.setBB('portal id', id);
-        } else if (char == '@') {
+          this.setBB("portal id", id);
+        } else if (char == "@") {
           this.addComponent(id, new C.Player(MAX_STAMINA, 0));
           this.addComponent(id, new C.Movable());
-          this.setBB('player id', id);
-        } else if (char == '*') {
+          this.setBB("player id", id);
+        } else if (char == "*") {
           this.addComponent(id, new C.Switch());
           switchCount += 1;
-        } else if (char == '#') {
+        } else if (char == "#") {
           this.addComponent(id, new C.Movable());
-          this.addComponent(id, new C.Enemy("Enemy", new CommonComponents.Position2d(xPos, yPos)));
+          this.addComponent(
+            id,
+            new C.Enemy("Enemy", new CommonComponents.Position2d(xPos, yPos)),
+          );
           this.addComponent(id, new C.Territory(pos));
-        } else if (char == '^') {
-          this.addComponent(id, new C.Enemy("Spike", new CommonComponents.Position2d(xPos, yPos)));
-        } else if (char == '/' || char == '\\' || char == 'X') {
+        } else if (char == "^") {
+          this.addComponent(
+            id,
+            new C.Enemy("Spike", new CommonComponents.Position2d(xPos, yPos)),
+          );
+        } else if (char == "/" || char == "\\" || char == "X") {
           this.addComponent(id, new Collider());
-        } else if (char == '&') {
+        } else if (char == "&") {
           this.addComponent(id, new C.Food());
         }
       }
@@ -104,11 +115,16 @@ export class Game extends ECSScene {
       for (let x = 1; x < engine.width / xMod - 1; ++x) {
         if (x < xMin || x > xMax || y < yMin || y > yMax) {
           const id = this.addEntity();
-          this.addComponent(id, new C.Render('X'));
+          this.addComponent(id, new C.Render("X"));
           const pos = new CommonComponents.Position2d(x, y);
           this.addComponent(id, pos);
 
-          if (x == xMin - 1 || y == yMin - 1 || x == xMax + 1 || y == yMax + 1) {
+          if (
+            x == xMin - 1 ||
+            y == yMin - 1 ||
+            x == xMax + 1 ||
+            y == yMax + 1
+          ) {
             gc.set(pos, id);
             this.addComponent(id, new C.Collider());
           }
@@ -116,13 +132,13 @@ export class Game extends ECSScene {
       }
     }
 
-    this.setBB('switch count', switchCount);
-    this.setBB('offset x', offsetX);
-    this.setBB('offset y', offsetY);
-    this.setBB('x mod', xMod);
-    this.setBB('y mod', yMod);
-    this.setBB('grid collisions', gc);
-    this.setBB('time step', 0);
+    this.setBB("switch count", switchCount);
+    this.setBB("offset x", offsetX);
+    this.setBB("offset y", offsetY);
+    this.setBB("x mod", xMod);
+    this.setBB("y mod", yMod);
+    this.setBB("grid collisions", gc);
+    this.setBB("time step", 0);
 
     this.addSystem(0, new S.PlayerMovement());
     this.addSystem(10, new S.PlayerCollision());
@@ -141,9 +157,10 @@ export class Game extends ECSScene {
   }
 
   public onExit(engine: Engine): void {
-    const gameOver = this.getBB('game over');
-    const playerID = this.getBB('player id');
-    const furthestColumn = this.getComponents(playerID).get(Player).furthestColumn;
+    const gameOver = this.getBB("game over");
+    const playerID = this.getBB("player id");
+    const furthestColumn =
+      this.getComponents(playerID).get(Player).furthestColumn;
     this.director.update(gameOver === 1.0, furthestColumn);
 
     ++Global.order;
@@ -152,7 +169,8 @@ export class Game extends ECSScene {
   }
 
   public customUpdate(engine: Engine): number {
-    const gameOver = this.getBB('game over')
+    const gameOver = this.getBB("game over");
+    console.log(`is game over: ${gameOver}`);
     if (gameOver == -1 || gameOver == 1) {
       const end = Date.now();
       const elapsed = (end - this.start) / 1000;
