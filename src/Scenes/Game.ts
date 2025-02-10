@@ -1,6 +1,5 @@
 import { C } from "../Components";
 import { S } from "../Systems";
-import { idToLevel } from "../levels";
 
 import {
   Engine,
@@ -170,8 +169,8 @@ export class Game extends ECSScene {
 
   public customUpdate(engine: Engine): number {
     const gameOver = this.getBB("game over");
-    console.log(`is game over: ${gameOver}`);
-    if (gameOver == -1 || gameOver == 1) {
+
+    if (gameOver === -1 || gameOver === 1) {
       const end = Date.now();
       const elapsed = (end - this.start) / 1000;
       Global.time = elapsed;
