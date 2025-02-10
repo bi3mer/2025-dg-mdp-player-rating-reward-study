@@ -124,6 +124,7 @@ while True:
 nodes_to_remove = []
 for node_name in G.nodes:
     path = bfs(G, node_name, 'end')
+
     if path == None:
         print(f'No path to end node found for {node_name}')
         nodes_to_remove.append(node_name)
