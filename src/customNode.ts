@@ -1,4 +1,12 @@
+import {
+  LD_DIFFICULTY,
+  LD_ENJOYMENT,
+  LD_MEAN,
+  LD_RANDOM,
+  LD_SWITCH,
+} from "./constants";
 import { Node } from "./GDM-TS/src/Graph/node";
+import { Global } from "./Global";
 
 export class CustomNode extends Node {
   public visitedCount: number;
@@ -27,11 +35,25 @@ export class CustomNode extends Node {
     this.sumPercentCompleted = 1;
   }
 
-  public updateReward(useDifficulty: boolean): void {
-    if (useDifficulty) {
-      this.reward = this.difficulty * this.visitedCount;
-    } else {
-      this.reward = this.enjoyability * this.visitedCount;
+  public updateReward(): void {
+    switch (Global.director) {
+      case LD_DIFFICULTY:
+        this.reward = this.difficulty;
+        break;
+      case LD_ENJOYMENT:
+        this.reward = this.enjoyability;
+        break;
+      case LD_RANDOM:
+        break; // nothing to do
+      case LD_MEAN:
+        this.reward = (this.difficulty + this.enjoyability) / 2;
+        break;
+      case LD_SWITCH:
+      default:
+        console.error("Error: update reward on switch director not possible.");
+        break;
     }
+
+    this.reward /= this.visitedCount;
   }
 }
