@@ -52,8 +52,11 @@ gameScene.playerWonIndex = wonIndex;
 gameScene.selfIndex = gameIndex;
 gameScene.mainMenuIndex = startIndex;
 
-playerLostScene.sceneIndex = gameIndex;
-playerWonScene.sceneIndex = gameIndex;
+playerLostScene.gameSceneIndex = gameIndex;
+playerLostScene.surveySceneIndex = surveyIndex;
+
+playerWonScene.gameSceneIndex = gameIndex;
+playerWonScene.surveySceneIndex = surveyIndex;
 
 tutorialScene.gameSceneIndex = gameIndex;
 
