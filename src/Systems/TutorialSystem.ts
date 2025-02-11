@@ -7,6 +7,7 @@ import { Render } from "../Components/Render";
 import { Territory } from "../Components/Territory";
 import { VisibleText } from "../Components/VisibleText";
 import { CONTINUE, MAX_STAMINA, PLAYER_LOST } from "../constants";
+import { Global } from "../Global";
 import { Engine, Entity, Key, System } from "../WorldEngine/index";
 import { Position2d } from "../WorldEngine/src/Components/Position2d";
 import { Cookie } from "../WorldEngine/src/Utility";
@@ -16,6 +17,7 @@ import { PlayerCollision } from "./PlayerCollision";
 import { PlayerMovement } from "./PlayerMovement";
 import { RenderEnemyTerritory } from "./RenderEnemyTerritory";
 import { RenderGameInfo } from "./RenderGameInfo";
+import { DB } from "../Database";
 
 export class TutorialSystem extends System {
   componentsRequired = new Set<Function>([]);
@@ -192,6 +194,8 @@ export class TutorialSystem extends System {
         }
 
         if (playerComponent.stamina <= 0) {
+          ++Global.tutorialDiedToStamina;
+
           playerComponent.stamina = MAX_STAMINA;
           positionPlayer.setX(25);
           positionPlayer.setY(5);
@@ -216,6 +220,12 @@ export class TutorialSystem extends System {
           p.stamina <= 0 ||
           positionPlayer.equals(positionEnemy)
         ) {
+          if (p.stamina <= 0) {
+            ++Global.tutorialDiedToStamina;
+          } else if (positionPlayer.equals(positionEnemy)) {
+            ++Global.tutorialDiedToEnemy;
+          }
+
           // reset player position
           positionPlayer.setX(positionSwitch.getX());
           positionPlayer.setY(positionSwitch.getY());
@@ -234,10 +244,9 @@ export class TutorialSystem extends System {
         }
 
         if (positionPlayer.equals(positionPortal)) {
+          DB.submitTutorial();
           Cookie.set("completed tutorial", "true");
           console.log(Cookie.get("completed tutorial"));
-
-          // TODO: tutorial logging
 
           return true;
         }

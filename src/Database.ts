@@ -1,11 +1,10 @@
 import { initializeApp } from "firebase/app";
 import {
   addDoc,
-  getFirestore,
   collection,
   Firestore,
+  getFirestore,
 } from "firebase/firestore";
-
 import { Global } from "./Global";
 
 export class DB {
@@ -37,8 +36,6 @@ export class DB {
       levels: Global.levels,
     };
 
-    console.log(submission);
-
     // Only log data to the server if there is a real participant.
     if (Global.playerID === "null") {
       console.log("Data not submitted:", submission);
@@ -51,13 +48,40 @@ export class DB {
   }
 
   public static submitSurvey(survey: { [key: string]: any }) {
-    survey["playerID"] = Global.playerID;
+    // only log to the server if this is a real participant
+    if (Global.playerID === "null") {
+      console.log("Data not submitted:", survey);
+    } else {
+      survey["playerID"] = Global.playerID;
+      addDoc(
+        collection(DB.db, `rq2.2_survey_${Global.director}_${Global.version}`),
+        survey,
+      );
 
-    addDoc(
-      collection(DB.db, `rq2.2_survey_${Global.director}_${Global.version}`),
-      survey,
-    );
+      console.log("Survey submitted.");
+    }
+  }
 
-    console.log("Survey submitted.");
+  public static submitTutorial() {
+    const submission = {
+      diedToEnemy: Global.tutorialDiedToEnemy,
+      diedToStamina: Global.tutorialDiedToStamina,
+      playerID: Global.playerID,
+    };
+
+    // only log to the server if this is a real participant
+    if (Global.playerID === "null") {
+      console.log("Data not submitted:", submission);
+    } else {
+      addDoc(
+        collection(
+          DB.db,
+          `rq2.2_tutorial_${Global.director}_${Global.version}`,
+        ),
+        submission,
+      );
+
+      console.log("Tutorial data submitted.");
+    }
   }
 }
