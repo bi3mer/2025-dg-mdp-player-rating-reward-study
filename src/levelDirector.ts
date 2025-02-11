@@ -56,17 +56,8 @@ export class LevelDirector {
     }
 
     // update reward for all the nodes
-    const isSwitchDirector = Global.director === LD_SWITCH;
-    if (isSwitchDirector) {
-      Global.director = this.optimizeDifficulty ? LD_DIFFICULTY : LD_ENJOYMENT;
-    }
-
     for (let key in MDP.nodes) {
-      (MDP.nodes[key] as CustomNode).updateReward();
-    }
-
-    if (isSwitchDirector) {
-      Global.director = LD_SWITCH;
+      (MDP.nodes[key] as CustomNode).updateReward(this.optimizeDifficulty);
     }
   }
 
@@ -80,14 +71,9 @@ export class LevelDirector {
       this.optimizeDifficulty = !this.optimizeDifficulty;
 
       // update reward for all the nodes
-      // NOTE: I am not going to claim that this director trick is good design.
-      // In fact, it is bad design, but
-      Global.director = this.optimizeDifficulty ? LD_DIFFICULTY : LD_ENJOYMENT;
       for (let key in MDP.nodes) {
-        (MDP.nodes[key] as CustomNode).updateReward();
+        (MDP.nodes[key] as CustomNode).updateReward(this.optimizeDifficulty);
       }
-
-      Global.director = LD_SWITCH;
     }
 
     // Map out how far the player made it in the level
@@ -141,18 +127,7 @@ export class LevelDirector {
       ++node.visitedCount;
       node.sumPercentCompleted += pc;
 
-      const isSwitchDirector = Global.director === LD_SWITCH;
-      if (isSwitchDirector) {
-        Global.director = this.optimizeDifficulty
-          ? LD_DIFFICULTY
-          : LD_ENJOYMENT;
-      }
-
-      node.updateReward();
-
-      if (Global.director === LD_SWITCH) {
-        Global.director = LD_SWITCH;
-      }
+      node.updateReward(this.optimizeDifficulty);
 
       // update incoming edges life and death probability
       const probLife = node.sumPercentCompleted / node.visitedCount;

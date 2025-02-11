@@ -35,7 +35,7 @@ export class CustomNode extends Node {
     this.sumPercentCompleted = 1;
   }
 
-  public updateReward(): void {
+  public updateReward(optimizeDifficulty: boolean): void {
     switch (Global.director) {
       case LD_DIFFICULTY:
         this.reward = this.difficulty;
@@ -44,13 +44,17 @@ export class CustomNode extends Node {
         this.reward = this.enjoyability;
         break;
       case LD_RANDOM:
-        break; // nothing to do
+        break;
       case LD_MEAN:
         this.reward = (this.difficulty + this.enjoyability) / 2;
         break;
       case LD_SWITCH:
+        this.reward = optimizeDifficulty ? this.difficulty : this.enjoyability;
+        break;
       default:
-        console.error("Error: update reward on switch director not possible.");
+        console.error(
+          `Error: update reward on director "${Global.director}" not possible.`,
+        );
         break;
     }
 
