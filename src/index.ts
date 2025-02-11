@@ -140,7 +140,7 @@ questionnaire!.onsubmit = (event) => {
 
   if (Object.keys(answers).length == QUESTIONS.length) {
     DB.submitSurvey(answers);
-    console.log("Survey submitted");
+
     document.getElementById("survey")!.style.display = "none";
     document.getElementById("complete")!.style.display = "block";
   } else {

@@ -1,6 +1,3 @@
-import { DB } from "../Database";
-import { QUESTIONS } from "../questions";
-import { fischerYatesShuffle } from "../Random";
 import { Engine, Scene } from "../WorldEngine";
 
 export class Survey extends Scene {
