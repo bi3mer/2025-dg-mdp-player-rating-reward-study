@@ -13,13 +13,12 @@ export class DB {
   public static init() {
     // Initialize Firebase, @NOTE: this is insecure and bad
     const app = initializeApp({
-      apiKey: "AIzaSyD6v26BmHUqqngOx7Bu6REP2t5mJNJlhlk",
-      authDomain: "exag-dungeongrams-study.firebaseapp.com",
-      projectId: "exag-dungeongrams-study",
-      storageBucket: "exag-dungeongrams-study.appspot.com",
-      messagingSenderId: "970729390672",
-      appId: "1:970729390672:web:c6231d60bdd477c7dec755",
-      measurementId: "G-VEPF12WK7P",
+      apiKey: "AIzaSyBsy1sNYcvbKYhD6evfTc-AE9MtgJIVX7I",
+      authDomain: "biemer-rq2-2.firebaseapp.com",
+      projectId: "biemer-rq2-2",
+      storageBucket: "biemer-rq2-2.firebasestorage.app",
+      messagingSenderId: "455291545423",
+      appId: "1:455291545423:web:ff1fb29b0f2aa6146c873a",
     });
 
     DB.db = getFirestore(app);
