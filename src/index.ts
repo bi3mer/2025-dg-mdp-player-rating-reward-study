@@ -152,10 +152,18 @@ questionnaire!.onsubmit = (event) => {
   }
 };
 
+// -------------- Demographic Survey Behavior ---------------
+const demoButton = document.getElementById("demo-submit");
+console.log(demoButton);
+demoButton!.onclick = () => {
+  document.getElementById("demographic")!.style.display = "none";
+  document.getElementById("survey")!.style.display = "block";
+};
+
 // -------------- Button Behavior ---------------
 document.getElementById("done")!.onclick = () => {
   engine.shutoff();
 
   document.getElementById("game")!.style.display = "none";
-  document.getElementById("survey")!.style.display = "block";
+  document.getElementById("demographic")!.style.display = "block";
 };
