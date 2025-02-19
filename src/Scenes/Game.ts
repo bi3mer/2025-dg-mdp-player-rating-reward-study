@@ -163,6 +163,8 @@ export class Game extends ECSScene {
     this.director.update(gameOver === 1.0, furthestColumn);
 
     ++Global.order;
+    Global.playerPathX.length = 0;
+    Global.playerPathY.length = 0;
 
     this.clear();
   }

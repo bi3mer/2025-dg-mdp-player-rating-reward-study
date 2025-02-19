@@ -66,6 +66,8 @@ export class PlayerMovement extends System {
       }
 
       if (playerMoved) {
+        Global.playerPathX.push(pos.x);
+        Global.playerPathY.push(pos.y);
         player.furthestColumn = Math.max(
           player.furthestColumn,
           pos.getX() - OFFSET_COL,

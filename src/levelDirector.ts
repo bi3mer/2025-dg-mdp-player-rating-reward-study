@@ -163,7 +163,7 @@ export class LevelDirector {
         for (let jj = 0; jj < neighborsCount; ++jj) {
           const nodeName = neighbors[jj];
           if (nodeName === "0_0_0") {
-            continue; // skip tutorial / basic level
+            continue; // skip basic level
           }
 
           const n = MDP.getNode(nodeName) as CustomNode;
@@ -195,6 +195,7 @@ export class LevelDirector {
     } else {
       pi = policyIteration(MDP, 0.95, true, true, 20);
     }
+
     this.columnsPerLevel = [];
 
     // If player won, don't start from a level that they have definitely
@@ -205,7 +206,7 @@ export class LevelDirector {
       this.keys = [KEY_START];
     }
 
-    // USE MDP to create a policy and generate a new level
+    // Use MDP to create a policy and generate a new level
     for (let i = 0; i < levelSegments; ++i) {
       const k = choice(pi[this.keys[i]]);
       this.keys.push(k);
@@ -215,9 +216,8 @@ export class LevelDirector {
       }
     }
 
-    // remove START id from keys since we won't use it after this
+    // Remove start id from keys since we won't use it after this
     this.keys.splice(0, 1);
-    console.log(this.keys);
 
     // Update if the player is on the last level
     this.playerIsOnLastLevel = this.keys.includes(KEY_END);

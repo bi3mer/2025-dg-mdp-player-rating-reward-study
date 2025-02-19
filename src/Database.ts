@@ -34,6 +34,8 @@ export class DB {
       order: Global.order,
       playerID: Global.playerID,
       levels: Global.levels,
+      pathX: Global.playerPathX,
+      pathY: Global.playerPathY,
     };
 
     // Only log data to the server if there is a real participant.
