@@ -76,7 +76,7 @@ for (; i < QUESTIONS.length; ++i) {
   const q = QUESTIONS[i];
   const id = q.split(" ").join("_");
 
-  const formElement = `<fieldset id="${id}">
+  const formElement = `<fieldset id="${id}" style="margin-left:15%; margin-right:15%">
   <label for="${id}" required><b>${q}</b></label>
     <br/>
     <br/>
