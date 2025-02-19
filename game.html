@@ -13,19 +13,28 @@
         <br />
         <br />
 
-        <center>
-            <div id="game">
+        <div id="game">
+            <center>
                 <canvas
                     id="canvas"
                     width="1000"
                     height="480"
                     style="border: 1px solid gray"
                 ></canvas>
-                <br />
-                <br />
+            </center>
+            <br />
+            <br />
+            <p style="color: #fff; margin-left: 10%; margin-right: 10%">
+                Thank you for agreeing to be part of this study. You are welcome
+                to play as much as you want, but there is a ten-minute time
+                limit, after which you will be taken to the survey. If you want
+                to stop playing, you can press the button below at any point.
+            </p>
+
+            <center>
                 <button id="done">Go to Survey</button>
-            </div>
-        </center>
+            </center>
+        </div>
         <div
             id="survey"
             style="
@@ -45,6 +54,178 @@
                     <!-- <button type='submit' form='questionnaire'></button> -->
                 </form>
                 <p id="errorText" style="color: red"></p>
+            </center>
+        </div>
+
+        <div
+            id="demographic"
+            style="
+                color: #fff;
+                font-size: 20px;
+                margin-left: 15%;
+                margin-right: 15%;
+            "
+        >
+            <form id="demogrpahics-form">
+                <fieldset id="demo-age">
+                    <label for="demo-age" required>
+                        What is your age range?
+                    </label>
+                    <br />
+                    <br />
+                    <div>
+                        <input type="radio" name="demo-age" value="18-24" />
+                        18-24
+                    </div>
+                    <div>
+                        <input type="radio" name="demo-age" value="25-34" />
+                        25-34
+                    </div>
+                    <div>
+                        <input type="radio" name="demo-age" value="35-44" />
+                        35-44
+                    </div>
+                    <div>
+                        <input type="radio" name="demo-age" value="45-54" />
+                        45-54
+                    </div>
+                    <div>
+                        <input type="radio" name="demo-age" value="55-64" />
+                        55-64
+                    </div>
+                    <div>
+                        <input type="radio" name="demo-age" value="65-74" />
+                        65-74
+                    </div>
+                    <div>
+                        <input type="radio" name="demo-age" value="75-84" />
+                        75-84
+                    </div>
+                    <div>
+                        <input type="radio" name="demo-age" value="85-94" />
+                        85-94
+                    </div>
+                    <div>
+                        <input
+                            type="radio"
+                            name="demo-age"
+                            value="95 or above"
+                        />
+                        95 or above
+                    </div>
+                </fieldset>
+
+                <br />
+
+                <fieldset id="demo-time">
+                    <label for="demo-time" required>
+                        Approximately how often per day, on average, do you
+                        spend playing computer games?
+                    </label>
+                    <br />
+                    <br />
+                    <div>
+                        <input type="radio" name="demo-time" value="<0.1666" />
+                        Less than 10 minutes
+                    </div>
+                    <div>
+                        <input type="radio" name="demo-time" value="<0.5" />
+                        Less than 30 minutes
+                    </div>
+                    <div>
+                        <input type="radio" name="demo-time" value="<1" />
+                        Less than 1 hour
+                    </div>
+                    <div>
+                        <input type="radio" name="demo-time" value="<2" />
+                        Less than 2 hours
+                    </div>
+                    <div>
+                        <input type="radio" name="demo-time" value="<3" />
+                        Less than 3 hours
+                    </div>
+                    <div>
+                        <input type="radio" name="demo-time" value=">=3" />
+                        3 or more hours
+                    </div>
+                </fieldset>
+                <br />
+                <fieldset id="demo-games">
+                    <label for="demo-games" required>
+                        What kinds of games do you play? Check all that apply:
+                    </label>
+                    <br />
+                    <br />
+                    <div>
+                        <input
+                            type="checkbox"
+                            name="demo-games"
+                            value="Action/Adventure"
+                        />
+                        Action/Adventure
+                    </div>
+                    <div>
+                        <input
+                            type="checkbox"
+                            name="demo-games"
+                            value="Casual"
+                        />
+                        Casual
+                    </div>
+                    <div>
+                        <input
+                            type="checkbox"
+                            name="demo-games"
+                            value="Citizen Science"
+                        />
+                        Citizen Science
+                    </div>
+                    <div>
+                        <input
+                            type="checkbox"
+                            name="demo-games"
+                            value="Puzzle"
+                        />
+                        Puzzle
+                    </div>
+                    <div>
+                        <input
+                            type="checkbox"
+                            name="demo-games"
+                            value="Role-playing"
+                        />
+                        Role-playing
+                    </div>
+                    <div>
+                        <input
+                            type="checkbox"
+                            name="demo-games"
+                            value="Shooter"
+                        />
+                        Shooter
+                    </div>
+                    <div>
+                        <input
+                            type="checkbox"
+                            name="demo-games"
+                            value="Other"
+                        />
+                        Other
+                    </div>
+                    <div>
+                        <input
+                            type="checkbox"
+                            name="demo-games"
+                            value="None of the above"
+                        />
+                        None of the above
+                    </div>
+                </fieldset>
+            </form>
+
+            <br />
+            <center>
+                <button id="demo-submit" style="font-size: 15px">Submit</button>
             </center>
         </div>
 
