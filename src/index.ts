@@ -153,8 +153,10 @@ questionnaire!.onsubmit = (event) => {
 };
 
 // -------------- Demographic Survey Behavior ---------------
+const checkBoxID = "demo-games";
 const demoButton = document.getElementById("demo-submit");
 const demoIDs = ["demo-age", "demo-time"];
+
 demoButton!.onclick = () => {
   const responses = {};
   console.log(demoIDs);
@@ -176,7 +178,6 @@ demoButton!.onclick = () => {
     }
   }
 
-  const checkBoxID = "demo-games";
   const elements = document.getElementsByName(checkBoxID);
   const selected = [];
   for (let i = 0; i < elements.length; ++i) {
@@ -207,6 +208,26 @@ demoButton!.onclick = () => {
   // document.getElementById("demographic")!.style.display = "none";
   // document.getElementById("survey")!.style.display = "block";
 };
+
+/// @NOTE: the implementation below is lazy. Should be one for loop
+// if none is pressed, we don't want it possible for the other checkboxes to be selected
+document.getElementById("demo-none")!.onclick = () => {
+  const elements = document.getElementsByName(checkBoxID);
+  for (let i = 0; i < elements.length; ++i) {
+    elements[i].checked = elements[i].value === "None of the above";
+  }
+};
+
+// if none is checked, it should be unchecked if another one is selected
+const elements = document.getElementsByName(checkBoxID);
+const selected = [];
+for (let i = 0; i < elements.length; ++i) {
+  if (elements[i].value !== "None of the above") {
+    elements[i].onclick = () => {
+      document.getElementById("demo-none")!.checked = false;
+    };
+  }
+}
 
 // -------------- Button Behavior ---------------
 document.getElementById("done")!.onclick = () => {
