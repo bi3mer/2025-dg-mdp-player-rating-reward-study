@@ -8,7 +8,7 @@ export class Survey extends Scene {
   public onEnter(engine: Engine): void {
     // hide game and make the survey visible
     document.getElementById("game")!.style.display = "none";
-    document.getElementById("survey")!.style.display = "block";
+    document.getElementById("demographic")!.style.display = "block";
 
     // Engine isn't needed anymore at this point in the game
     engine.shutoff();
