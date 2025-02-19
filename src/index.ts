@@ -154,10 +154,58 @@ questionnaire!.onsubmit = (event) => {
 
 // -------------- Demographic Survey Behavior ---------------
 const demoButton = document.getElementById("demo-submit");
-console.log(demoButton);
+const demoIDs = ["demo-age", "demo-time"];
 demoButton!.onclick = () => {
-  document.getElementById("demographic")!.style.display = "none";
-  document.getElementById("survey")!.style.display = "block";
+  const responses = {};
+  console.log(demoIDs);
+  for (let i = 0; i < demoIDs.length; ++i) {
+    const id = demoIDs[i];
+    const elements = document.getElementsByName(id);
+
+    for (let jj = 0; jj < elements.length; ++jj) {
+      if (elements[jj].checked) {
+        responses[id] = elements[jj].value;
+        break;
+      }
+    }
+
+    if (id in responses) {
+      document.getElementById(id)!.style.borderColor = "white";
+    } else {
+      document.getElementById(id)!.style.borderColor = "red";
+    }
+  }
+
+  const checkBoxID = "demo-games";
+  const elements = document.getElementsByName(checkBoxID);
+  const selected = [];
+  for (let i = 0; i < elements.length; ++i) {
+    const e = elements[i];
+
+    if (e.checked) {
+      selected.push(e.value);
+    }
+  }
+
+  if (selected.length > 0) {
+    responses[checkBoxID] = selected;
+    document.getElementById(checkBoxID)!.style.borderColor = "white";
+  } else {
+    document.getElementById(checkBoxID)!.style.borderColor = "red";
+    document.getElementById("demoErrorText")!.innerText =
+      "Please fill in the whole questionnaire. Red boxes indicate missed answers.";
+  }
+
+  console.log(responses);
+
+  if (Object.keys(responses).length === 3) {
+    Global.demographicSurveyData = responses;
+    document.getElementById("demographic")!.style.display = "none";
+    document.getElementById("survey")!.style.display = "block";
+  }
+
+  // document.getElementById("demographic")!.style.display = "none";
+  // document.getElementById("survey")!.style.display = "block";
 };
 
 // -------------- Button Behavior ---------------

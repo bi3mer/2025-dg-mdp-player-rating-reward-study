@@ -19,4 +19,6 @@ export class Global {
   // another for y
   public static playerPathX: number[] = [];
   public static playerPathY: number[] = [];
+
+  public static demographicSurveyData: { [id: string]: string } = {};
 }
