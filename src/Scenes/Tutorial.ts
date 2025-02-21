@@ -21,7 +21,7 @@ export class Tutorial extends ECSScene {
 
     const playerID = this.addEntity();
     this.setBB("player id", playerID);
-    this.addComponent(playerID, new CommonComponents.Position2d(25, 5));
+    this.addComponent(playerID, new CommonComponents.Position2d(25, 10));
     this.addComponent(playerID, new Movable());
     this.addComponent(playerID, new Player(MAX_STAMINA, 0));
     this.addComponent(playerID, new Render("@"));

@@ -95,9 +95,9 @@ export class TutorialSystem extends System {
     let s: Entity;
     let p: Entity;
     let e: Entity;
-    const positionSwitch = new Position2d(20, 8);
-    const positionPortal = new Position2d(30, 8);
-    const positionEnemy = new Position2d(28, 8);
+    const positionSwitch = new Position2d(20, 10);
+    const positionPortal = new Position2d(30, 10);
+    const positionEnemy = new Position2d(28, 10);
 
     this.steps.push([
       "Press ' ' (space) to spend one turn and not move.",
@@ -106,7 +106,7 @@ export class TutorialSystem extends System {
           // create boundary rectangle so player cannot exit the screen
           const MIN_X = 15;
           const MAX_X = 35;
-          const MIN_Y = 3;
+          const MIN_Y = 5;
           const MAX_Y = 15;
 
           for (let x = MIN_X; x < MAX_X; ++x) {

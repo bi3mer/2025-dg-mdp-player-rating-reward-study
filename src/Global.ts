@@ -21,4 +21,5 @@ export class Global {
   public static playerPathY: number[] = [];
 
   public static demographicSurveyData: { [id: string]: string } = {};
+  public static difficultyScore: number = 0;
 }

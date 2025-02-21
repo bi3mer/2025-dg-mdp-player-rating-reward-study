@@ -1,4 +1,4 @@
-import { greedyPolicy, policyIteration, randomPolicy } from "./GDM-TS";
+import { policyIteration, randomPolicy } from "./GDM-TS";
 import { Edge } from "./GDM-TS/src/Graph/edge";
 import { choice } from "./GDM-TS/src/rand";
 import {
@@ -30,19 +30,23 @@ export class LevelDirector {
   private optimizeDifficulty: boolean;
   private type: string;
 
-  constructor() {
-    // assign the director
-    const urlParams = new URLSearchParams(window.location.search);
-    if (urlParams.has("default")) {
-      this.type = LD_MEAN;
+  constructor(type: string | undefined) {
+    if (type === undefined) {
+      // assign the director
+      const urlParams = new URLSearchParams(window.location.search);
+      if (urlParams.has("default")) {
+        this.type = LD_MEAN;
+      } else {
+        this.type = choice([
+          LD_RANDOM,
+          LD_DIFFICULTY,
+          LD_ENJOYMENT,
+          LD_SWITCH,
+          LD_MEAN,
+        ]);
+      }
     } else {
-      this.type = choice([
-        LD_RANDOM,
-        LD_DIFFICULTY,
-        LD_ENJOYMENT,
-        LD_SWITCH,
-        LD_MEAN,
-      ]);
+      this.type = type;
     }
 
     console.log(`Director: ${this.type}`);
@@ -191,7 +195,6 @@ export class LevelDirector {
     let pi: Policy;
     if (this.type == LD_RANDOM) {
       pi = randomPolicy(MDP);
-      console.log(pi);
     } else {
       pi = policyIteration(MDP, 0.95, true, true, 20);
     }

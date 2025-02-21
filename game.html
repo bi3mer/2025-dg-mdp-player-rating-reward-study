@@ -45,6 +45,9 @@
             "
         >
             <center>
+                <h2 style="color: $fff">
+                    3/4
+                </h2>
                 <p>
                     Please fill out the following survey. Afterwards, your code
                     will be available after submission.
@@ -67,10 +70,11 @@
                 margin-right: 15%;
             "
         >
+            <h2 style="color: $fff">
+                1/4
+            </h2>
             <p>
-                Please fill out the following survey. Once you are done, there
-                will be one more short survey, and then your code will be
-                available.
+                Please fill out the following survey.
             </p>
             <form id="demogrpahics-form">
                 <fieldset id="demo-age">
@@ -236,6 +240,53 @@
                 <button id="demo-submit" type="submit" font-size: 15px">Submit</button>
             </center>
             <p id="demoErrorText" style="color: red"></p>
+        </div>
+
+        <div id="difficulty" style="display: none; color: #fff;font-size: 20px;margin-left: 15%;margin-right: 15%">
+            <h2 style="color: #fff">
+                2/4
+            </h2>
+            <p style="color#fff">
+                Please answer the following question:
+            </p>
+            <center>
+                <form id="difficulty-form">
+                    <fieldset id="difficulty-q">
+                        <label for="difficulty-q" required>
+                            I found the game difficult to play
+                        </label>
+                        <br/>
+                            <br/>
+                            <table>
+                            <tr>
+                                <td></td>
+                                <td>-3</td>
+                                <td>-2</td>
+                                <td>-1</td>
+                                <td>&#20;0</td>
+                                <td>&#20;1</td>
+                                <td>&#20;2</td>
+                                <td>&#20;3</td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td>Strongly disagree</td>
+                                <td><input type="radio" name="diff-answer" value="-3"/></td>
+                                <td><input type="radio" name="diff-answer" value="-2"/></td>
+                                <td><input type="radio" name="diff-answer" value="-1"/></td>
+                                <td><input type="radio" name="diff-answer" value="0"/></td>
+                                <td><input type="radio" name="diff-answer" value="1"/></td>
+                                <td><input type="radio" name="diff-answer" value="2"/></td>
+                                <td><input type="radio" name="diff-answer" value="3"/></td>
+                                <td>Strongly agree</td>
+                            </tr>
+                        </table>
+                    </fieldset>
+                </form>
+                <br/>
+                <button id="diff-submit" type="submit" font-size: 15px">Submit</button>
+                <p id="difficultyErrorText" style="color: red"></p>
+            </center>
         </div>
 
         <div id="complete" style="display: none; color: white; font-size: 30px">

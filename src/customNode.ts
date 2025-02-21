@@ -58,6 +58,6 @@ export class CustomNode extends Node {
         break;
     }
 
-    this.reward /= this.visitedCount;
+    this.reward *= this.visitedCount;
   }
 }

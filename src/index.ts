@@ -159,7 +159,6 @@ const demoIDs = ["demo-age", "demo-time"];
 
 demoButton!.onclick = () => {
   const responses = {};
-  console.log(demoIDs);
   for (let i = 0; i < demoIDs.length; ++i) {
     const id = demoIDs[i];
     const elements = document.getElementsByName(id);
@@ -197,16 +196,11 @@ demoButton!.onclick = () => {
       "Please fill in the whole questionnaire. Red boxes indicate missed answers.";
   }
 
-  console.log(responses);
-
   if (Object.keys(responses).length === 3) {
     Global.demographicSurveyData = responses;
     document.getElementById("demographic")!.style.display = "none";
-    document.getElementById("survey")!.style.display = "block";
+    document.getElementById("difficulty")!.style.display = "block";
   }
-
-  // document.getElementById("demographic")!.style.display = "none";
-  // document.getElementById("survey")!.style.display = "block";
 };
 
 /// @NOTE: the implementation below is lazy. Should be one for loop
@@ -228,6 +222,30 @@ for (let i = 0; i < elements.length; ++i) {
     };
   }
 }
+
+// -------------- Difficulty Survey Behavior ---------------
+document.getElementById("diff-submit")!.onclick = () => {
+  const responses = document.getElementsByName("diff-answer");
+  let found = false;
+
+  for (let i = 0; i < responses.length; ++i) {
+    if (responses[i].checked) {
+      found = true;
+      Global.difficultyScore = Number(responses[i].value);
+
+      document.getElementById("difficulty")!.style.display = "none";
+      document.getElementById("survey")!.style.display = "block";
+
+      break;
+    }
+  }
+
+  if (!found) {
+    document.getElementById("difficulty-q")!.style.borderColor = "red";
+    document.getElementById("difficultyErrorText")!.innerText =
+      "Please fill in the whole questionnaire. Red boxes indicate missed answers.";
+  }
+};
 
 // -------------- Button Behavior ---------------
 document.getElementById("done")!.onclick = () => {
