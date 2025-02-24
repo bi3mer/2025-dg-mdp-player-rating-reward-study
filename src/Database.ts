@@ -48,6 +48,13 @@ export class DB {
     }
   }
 
+  public static submitBeatGame() {
+    addDoc(collection(DB.db, `rq2.2_beatgame_${Global.version}`), {
+      playerID: Global.playerID,
+      director: Global.director,
+    });
+  }
+
   public static submitSurvey(survey: { [key: string]: any }) {
     // add difficulty to survey
     survey["difficulty"] = Global.difficultyScore;

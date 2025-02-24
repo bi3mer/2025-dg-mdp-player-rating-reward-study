@@ -3203,5 +3203,18 @@ export const idToLevel:{ [key: string]: string[] } = {
     "XXXXXXXXXXXXXXX",
     "XXXXXXXXXXXXXXX",
     "XXXXXXXXXXXXXXX"
+  ],
+  "end": [
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    ""
   ]
 };

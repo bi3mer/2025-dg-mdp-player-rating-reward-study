@@ -7,7 +7,7 @@ import {
 } from "../src/constants";
 import { LevelDirector } from "../src/levelDirector";
 
-const ld = new LevelDirector(LD_ENJOYMENT);
+const ld = new LevelDirector(LD_SWITCH);
 
 const NUM_LEVELS = 2;
 const idToCount = {};

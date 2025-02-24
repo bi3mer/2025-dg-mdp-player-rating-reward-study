@@ -16,6 +16,7 @@ import { DB } from "../Database";
 import { Global } from "../Global";
 
 export class Game extends ECSScene {
+  public playerBeatGameIndex = 0;
   public playerWonIndex = 0;
   public playerLostIndex = 0;
   public selfIndex = 0;
@@ -27,7 +28,7 @@ export class Game extends ECSScene {
   constructor() {
     super();
 
-    this.director = new LevelDirector();
+    this.director = new LevelDirector(undefined);
     this.setBB("game over", 0);
     this.setBB("restart", false);
   }
@@ -178,7 +179,15 @@ export class Game extends ECSScene {
       Global.time = elapsed;
       DB.submitAttempt();
 
-      return gameOver == 1 ? this.playerWonIndex : this.playerLostIndex;
+      if (gameOver === 1) {
+        if (this.director.keys.includes("end")) {
+          return this.playerBeatGameIndex;
+        } else {
+          return this.playerWonIndex;
+        }
+      }
+
+      return this.playerLostIndex;
     } else if (engine.keyDown.has(Key.R)) {
       return this.selfIndex;
     } else if (engine.keyDown.has(Key.Q)) {

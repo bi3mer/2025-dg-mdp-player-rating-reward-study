@@ -21,10 +21,11 @@ if (
   } else {
     Global.playerID = "-1";
   }
+
+  console.log(Global.playerID);
 }
 
 console.log(`Player ID: ${Global.playerID}`);
-
 // -------------- Set up the engine --------------
 const engine = new Engine();
 engine.displayFPS = false;
@@ -35,6 +36,7 @@ const playerLostScene = new Scene.PlayerLost();
 const playerWonScene = new Scene.PlayerWon();
 const tutorialScene = new Scene.Tutorial();
 const surveyScene = new Scene.Survey();
+const beatGameScene = new Scene.PlayerBeatGame();
 
 const startIndex = engine.addScene(startScene);
 const gameIndex = engine.addScene(gameScene);
@@ -42,11 +44,13 @@ const lostIndex = engine.addScene(playerLostScene);
 const wonIndex = engine.addScene(playerWonScene);
 const tutorialIndex = engine.addScene(tutorialScene);
 const surveyIndex = engine.addScene(surveyScene);
+const beatGameIndex = engine.addScene(beatGameScene);
 
 startScene.tutorialIndex = tutorialIndex;
 startScene.gameIndex = gameIndex;
 startScene.surveyIndex = surveyIndex;
 
+gameScene.playerBeatGameIndex = beatGameIndex;
 gameScene.playerLostIndex = lostIndex;
 gameScene.playerWonIndex = wonIndex;
 gameScene.selfIndex = gameIndex;
@@ -59,6 +63,8 @@ playerWonScene.gameSceneIndex = gameIndex;
 playerWonScene.surveySceneIndex = surveyIndex;
 
 tutorialScene.gameSceneIndex = gameIndex;
+
+beatGameScene.surveySceneIndex = surveyIndex;
 
 engine.start();
 

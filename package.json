@@ -8,7 +8,9 @@
     "prod": "bun build src/index.ts --outfile dist/index.js --minify"
   },
   "author": "Colan F. Biemer",
-  "devDependencies": {},
+  "devDependencies": {
+    "firebase-admin": "^13.1.0"
+  },
   "dependencies": {
     "firebase": "^10.13.0"
   }

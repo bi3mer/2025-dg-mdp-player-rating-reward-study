@@ -110,7 +110,7 @@ export class LevelDirector {
       const node = MDP.getNode(id) as CustomNode;
 
       // add edge if the segemnt was completed by the player
-      if (pc === 1) {
+      if (pc === 1 && id !== "end") {
         if (!MDP.hasEdge(KEY_START, id)) {
           console.log(`'adding edge: ${KEY_START} -> ${id}`);
           MDP.addEdge(
@@ -202,9 +202,16 @@ export class LevelDirector {
     this.columnsPerLevel = [];
 
     // If player won, don't start from a level that they have definitely
-    // already played
+    // already played. Alternatively, we don't want the last level the
+    // player plays to be empty.
     if (this.playerWonLastRound) {
-      this.keys = [choice(pi[KEY_START])];
+      const nextState = choice(pi[KEY_START]);
+
+      if (nextState === "end") {
+        this.keys = [KEY_START];
+      } else {
+        this.keys = [nextState];
+      }
     } else {
       this.keys = [KEY_START];
     }
