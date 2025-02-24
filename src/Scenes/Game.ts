@@ -188,11 +188,14 @@ export class Game extends ECSScene {
       }
 
       return this.playerLostIndex;
-    } else if (engine.keyDown.has(Key.R)) {
-      return this.selfIndex;
-    } else if (engine.keyDown.has(Key.Q)) {
-      return this.mainMenuIndex;
     }
+
+    ///// This behavior is not included in the study
+    // else if (engine.keyDown.has(Key.R)) {
+    //   return this.selfIndex;
+    // } else if (engine.keyDown.has(Key.Q)) {
+    //   return this.mainMenuIndex;
+    // }
 
     return -1;
   }
