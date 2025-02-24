@@ -112,7 +112,6 @@ export class TutorialSystem extends System {
           for (let x = MIN_X; x < MAX_X; ++x) {
             const top = this.ecs.addEntity();
             this.ecs.addComponent(top, new Position2d(x, MIN_Y));
-            this.ecs.addComponent(top, new Collider());
             this.ecs.addComponent(top, new Render("X"));
             gc.set(new Position2d(x, MIN_Y), top);
 
@@ -149,6 +148,7 @@ export class TutorialSystem extends System {
           this.ecs.addComponent(p, positionPortal);
           this.ecs.addComponent(p, new Render("o"));
           this.ecs.addComponent(p, new Portal());
+          this.ecs.addComponent(p, new Collider());
 
           this.ecs.setBB("grid collisions", gc);
 
@@ -177,6 +177,7 @@ export class TutorialSystem extends System {
         if (positionPlayer.equals(positionSwitch)) {
           this.ecs.removeEntity(s);
           this.ecs.getComponents(p).get(Render).character = "O";
+          gc.set(this.ecs.getComponents(p).get(Position2d), p);
 
           this.ecs.addComponent(e, positionEnemy);
           this.ecs.addComponent(e, new Render("#"));
@@ -198,7 +199,7 @@ export class TutorialSystem extends System {
 
           playerComponent.stamina = MAX_STAMINA;
           positionPlayer.setX(25);
-          positionPlayer.setY(5);
+          positionPlayer.setY(10);
           this.ecs.getComponents(this.textID).get(VisibleText).text =
             "Try to hit the '*' switch before you run out of stamina.";
         }
@@ -227,12 +228,12 @@ export class TutorialSystem extends System {
           }
 
           // reset player position
-          positionPlayer.setX(positionSwitch.getX());
-          positionPlayer.setY(positionSwitch.getY());
+          positionPlayer.setX(22);
+          positionPlayer.setY(10);
 
           // reset enemy position
           positionEnemy.setX(28);
-          positionEnemy.setY(8);
+          positionEnemy.setY(10);
 
           // reset player stamina and game state
           p.stamina = MAX_STAMINA;
