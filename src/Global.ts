@@ -9,7 +9,7 @@ export class Global {
   public static playerGaveUp = false;
   public static gamesPlayed = 0;
   public static director = "-1";
-  public static version = "0.0.3";
+  public static version = "1.0.0";
 
   // Tutorial data
   public static tutorialDiedToEnemy = 0;
