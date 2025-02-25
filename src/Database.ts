@@ -56,14 +56,11 @@ export class DB {
   }
 
   public static submitSurvey(survey: { [key: string]: any }) {
-    // add difficulty to survey
-    survey["difficulty"] = Global.difficultyScore;
-
-    // add demogrpahics to survey
-    const keys = Object.keys(Global.demographicSurveyData);
+    // add non-pxi data to survey
+    const keys = Object.keys(Global.customData);
     for (let i = 0; i < keys.length; ++i) {
       const k = keys[i];
-      survey[k] = Global.demographicSurveyData[k];
+      survey[k] = Global.customData[k];
     }
 
     // only log to the server if this is a real participant

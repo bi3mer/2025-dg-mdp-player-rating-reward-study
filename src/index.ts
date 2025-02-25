@@ -203,7 +203,7 @@ demoButton!.onclick = () => {
   }
 
   if (Object.keys(responses).length === 3) {
-    Global.demographicSurveyData = responses;
+    Global.customData = responses;
     document.getElementById("demographic")!.style.display = "none";
     document.getElementById("difficulty")!.style.display = "block";
   }
@@ -231,25 +231,36 @@ for (let i = 0; i < elements.length; ++i) {
 
 // -------------- Difficulty Survey Behavior ---------------
 document.getElementById("diff-submit")!.onclick = () => {
-  const responses = document.getElementsByName("diff-answer");
-  let found = false;
+  const names = ["difficulty", "bored"];
+  let allValid = true;
+  for (let i = 0; i < names.length; ++i) {
+    const name = names[i];
+    const responses = document.getElementsByName(`${name}-answer`);
+    let found = false;
 
-  for (let i = 0; i < responses.length; ++i) {
-    if (responses[i].checked) {
-      found = true;
-      Global.difficultyScore = Number(responses[i].value);
+    for (let i = 0; i < responses.length; ++i) {
+      if (responses[i].checked) {
+        Global.customData[name] = Number(responses[i].value);
+        found = true;
+        break;
+      }
+    }
 
-      document.getElementById("difficulty")!.style.display = "none";
-      document.getElementById("survey")!.style.display = "block";
+    if (!found) {
+      document.getElementById(`${name}-q`)!.style.borderColor = "red";
+      document.getElementById("difficultyErrorText")!.innerText =
+        "Please fill in the whole questionnaire. Red boxes indicate missed answers.";
 
-      break;
+      allValid = false;
+    } else {
+      document.getElementById(`${name}-q`)!.style.borderColor = "white";
     }
   }
 
-  if (!found) {
-    document.getElementById("difficulty-q")!.style.borderColor = "red";
-    document.getElementById("difficultyErrorText")!.innerText =
-      "Please fill in the whole questionnaire. Red boxes indicate missed answers.";
+  if (allValid) {
+    console.log(Global.customData);
+    document.getElementById("difficulty")!.style.display = "none";
+    document.getElementById("survey")!.style.display = "block";
   }
 };
 
