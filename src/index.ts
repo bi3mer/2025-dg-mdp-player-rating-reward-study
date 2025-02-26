@@ -214,7 +214,24 @@ demoButton!.onclick = () => {
 document.getElementById("demo-none")!.onclick = () => {
   const elements = document.getElementsByName(checkBoxID);
   for (let i = 0; i < elements.length; ++i) {
-    elements[i].checked = elements[i].value === "None of the above";
+    const e = elements[i];
+    if (e.value === "None of the above") {
+      e.checked != e.checked;
+    } else {
+      e.checked = false;
+    }
+  }
+};
+
+document.getElementById("demo-pref")!.onclick = () => {
+  const elements = document.getElementsByName(checkBoxID);
+  for (let i = 0; i < elements.length; ++i) {
+    const e = elements[i];
+    if (e.value === "Prefer not to answer") {
+      e.checked != e.checked;
+    } else {
+      e.checked = false;
+    }
   }
 };
 
@@ -222,9 +239,11 @@ document.getElementById("demo-none")!.onclick = () => {
 const elements = document.getElementsByName(checkBoxID);
 const selected = [];
 for (let i = 0; i < elements.length; ++i) {
-  if (elements[i].value !== "None of the above") {
-    elements[i].onclick = () => {
+  const e = elements[i];
+  if (e.value !== "None of the above" && e.value !== "Prefer not to answer") {
+    e.onclick = () => {
       document.getElementById("demo-none")!.checked = false;
+      document.getElementById("demo-pref")!.checked = false;
     };
   }
 }
