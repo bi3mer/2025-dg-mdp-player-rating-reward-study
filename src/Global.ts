@@ -6,10 +6,9 @@ export class Global {
   public static time = 0;
   public static levels: string[] = [];
   public static diedFrom = "Stamina"; // Enemy | Stamina | Spike | ""
-  public static playerGaveUp = false;
   public static gamesPlayed = 0;
   public static director = "-1";
-  public static version = "1.0.1";
+  public static version = "1.1.0";
 
   // Tutorial data
   public static tutorialDiedToEnemy = 0;

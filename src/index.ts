@@ -250,7 +250,7 @@ for (let i = 0; i < elements.length; ++i) {
 
 // -------------- Difficulty Survey Behavior ---------------
 document.getElementById("diff-submit")!.onclick = () => {
-  const names = ["difficulty", "bored"];
+  const names = ["difficulty", "bored", "easy"];
   let allValid = true;
   for (let i = 0; i < names.length; ++i) {
     const name = names[i];
@@ -275,6 +275,8 @@ document.getElementById("diff-submit")!.onclick = () => {
       document.getElementById(`${name}-q`)!.style.borderColor = "white";
     }
   }
+
+  console.log(Global.customData);
 
   if (allValid) {
     console.log(Global.customData);
